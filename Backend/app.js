@@ -1,38 +1,46 @@
 import express from 'express';
-import mongoose from 'mongoose';
+import mongoose, { connect } from 'mongoose';
 import dotenv from 'dotenv';
-import User from './Models/users.js'; // Asegúrate de que esta ruta sea correcta
+import User from './Models/users.js';
+
+
+
 
 dotenv.config();
 
 const app = express();
-const router = express.Router();
-const port = 5000;
-
+//app.use(cors());
 app.use(express.json());
 
-// Conexión con MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
 
-const db = mongoose.connection;
-db.on('error', (err) => console.error('Connection error:', err));
-db.once('open', () => console.log('Connected to MongoDB'));
+const port = 5001;
 
-// Obtener todos los usuarios
-router.get('/users', async (req, res) => {
+async function connectDB() {
     try {
-        const content = await User.find();
-        res.json(content);
-    } catch (err) {
-        res.status(500).send(err);
+        await mongoose.connect("mongodb://localhost:27017/users", {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+
+        console.log('Server connected to DataBase');
+    } catch (error) {
+        console.error('Error connecting to the database', error);
+    }
+}
+
+
+app.get('/users', async (req, res) => {
+    try {
+        const users = await User.find();
+        res.json(users);
+        console.log(users);
+    } catch (error) {
+        res.status(500).send('Error fetching users');
     }
 });
 
-app.use('/api', router);
 
 app.listen(port, () => {
+    connectDB()
     console.log(`Server running on http://localhost:${port}`);
 });
