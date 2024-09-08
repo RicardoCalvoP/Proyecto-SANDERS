@@ -1,6 +1,10 @@
 import React from "react";
+
 import { Admin, Resource } from "react-admin";
 import { Layout } from "./Layout";
+import LoginPage from "./loginpage";
+import MyLayout from "./MyLayout";
+import { authProvider } from "./authProvider";
 // import { dataProvider } from "./dataProvider";
 
 // Imported Icons
@@ -21,7 +25,7 @@ import { StatsList } from "./estadisticas";
 
 
 export const App = () => (
-  <Admin
+  <Admin loginPage={LoginPage} layout={MyLayout}
   //layout={Layout} dataProvider={dataProvider}
   >
     <Resource
