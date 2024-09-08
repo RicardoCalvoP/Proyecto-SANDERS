@@ -1,7 +1,8 @@
 import express from 'express';
 import mongoose, { connect } from 'mongoose';
 import dotenv from 'dotenv';
-import User from './Models/users.js';
+import { User, Employee } from './Models/models.js';
+
 
 
 
@@ -17,7 +18,7 @@ const port = 5001;
 
 async function connectDB() {
     try {
-        await mongoose.connect("mongodb://localhost:27017/users", {
+        await mongoose.connect("mongodb://localhost:27017/SANDERS", {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
@@ -34,6 +35,16 @@ app.get('/users', async (req, res) => {
         const users = await User.find();
         res.json(users);
         console.log(users);
+    } catch (error) {
+        res.status(500).send('Error fetching users');
+    }
+});
+
+app.get('/employees', async (req, res) => {
+    try {
+        const employees = await Employee.find();
+        res.json(employees);
+        console.log(employees);
     } catch (error) {
         res.status(500).send('Error fetching users');
     }
