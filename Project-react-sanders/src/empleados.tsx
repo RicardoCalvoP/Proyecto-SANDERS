@@ -14,12 +14,12 @@ export const EmployeeList = () => {
         <List>
             <Datagrid>
                 <TextField source="id" />
-                <TextField source="nombre" />
-                <TextField source="apellido" />
+                <TextField source="name" />
+                <TextField source="surname" />
                 <TextField source="rol" />
-                <TextField source="telefono" />
+                <TextField source="phone" />
                 <EmailField source="email" />
-                <TextField source="contraseña" />
+                <TextField source="password" />
             </Datagrid>
         </List>
     )

@@ -54,13 +54,46 @@ app.get('/users', async (req, res) => {
 app.get('/employees', async (req, res) => {
     try {
         const employees = await Employee.find();
-        res.json(employees);
-        console.log(employees);
+        const employeesWithId = employees.map(employees => ({
+            id: employees._id,
+            name: employees.name,
+            surname: employees.surname,
+            rol: employees.rol,
+            phone: employees.phone,
+            email: employees.email,
+            password: employees.password
+        }));
+        res.set('X-Total-Count', employees.length);
+        console.log(employeesWithId);
+        res.json(employeesWithId);
     } catch (error) {
         res.status(500).send('Error fetching users');
     }
 });
 
+// Create new user (POST /users)
+app.post('/users', async (req, res) => {
+    try {
+        const newUser = new User({
+            name: req.body.name,
+            surname: req.body.surname,
+            email: req.body.email,
+            phone: req.body.phone,
+        });
+        const savedUser = await newUser.save(); // Save the user in DB
+        res.status(201).json({
+            id: savedUser._id, // Transformar _id a id para React-Admin
+            name: savedUser.name,
+            surname: savedUser.surname,
+            email: savedUser.email,
+            phone: savedUser.phone,
+        });
+
+    }
+    catch (err) {
+        res.status(500).json({ err: 'Error al crear Usuario' }) // Change to Notify Hook later
+    }
+});
 
 app.listen(port, () => {
     connectDB()
