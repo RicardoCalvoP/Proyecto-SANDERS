@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     phone: {
         type: String, required: false, unique: true
     },
-    number_of_donations: { type: Number, default: 0 }
+    num_donations: { type: Number, default: 0 }
 });
 
 const User = mongoose.model('User', userSchema);
