@@ -1,23 +1,23 @@
 import { useMediaQuery, Theme } from "@mui/material";
 import { create } from "domain";
 import {
-    List, Datagrid, TextField, EmailField, NumberField,
+    List, Datagrid, TextField, EmailField, NumberField, ListProps,
     SimpleForm, TextInput, NumberInput,
     Create
 } from "react-admin";
 
-export const UserList = () => {
+export const UserList = (props: ListProps) => {
     const isSmall = useMediaQuery<Theme>((theme) => theme.breakpoints.down("md"));
 
     return (
-        <List>
+        <List {...props}>
             <Datagrid>
                 <TextField source="id" />
-                <TextField source="nombre" />
-                <TextField source="apellido" />
+                <TextField source="name" />
+                <TextField source="surname" />
                 <EmailField source="email" />
-                <TextField source="telefono " />
-                <NumberField source="numero de doncaciones" />
+                <TextField source="phone" />
+                <NumberField source="num_donations" />
             </Datagrid>
         </List>
     )
