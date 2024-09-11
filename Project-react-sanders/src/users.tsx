@@ -23,15 +23,15 @@ export const UserList = (props: ListProps) => {
     )
 }
 
-export const UsersCreate = () => {
+export const UsersCreate = (props: any) => {
     return (
 
-        <Create>
+        <Create {...props}>
             <SimpleForm>
-                <TextInput source="nombre" />
-                <TextInput source="apellido" />
+                <TextInput source="name" />
+                <TextInput source="surname" />
                 <TextInput source="email" />
-                <NumberInput source="telefono" />
+                <TextInput source="phone" />
             </SimpleForm>
         </Create>
     )
