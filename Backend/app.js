@@ -95,6 +95,33 @@ app.post('/users', async (req, res) => {
     }
 });
 
+// Create new employee (POST /employees)
+app.post('/employees', async (req, res) => {
+    try {
+        const newEmployee = new Employee({
+            name: req.body.name,
+            surname: req.body.surname,
+            rol: req.body.rol,
+            phone: req.body.phone,
+            email: req.body.email,
+            password: req.body.password
+        });
+        const savedEmployee = await newEmployee.save(); // Save employee in DB
+        res.status(201).json({
+            id: savedEmployee._id,
+            name: savedEmployee.name,
+            surname: savedEmployee.surname,
+            rol: savedEmployee.rol,
+            phone: savedEmployee.phone,
+            email: savedEmployee.email,
+            password: savedEmployee.password
+        });
+    }
+    catch (err) {
+        res.status(500).json({ err: 'Error al crear Empleado' }) // Change to Notify Hook later
+    }
+});
+
 app.listen(port, () => {
     connectDB()
     console.log(`Server running on http://localhost:${port}`);
