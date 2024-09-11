@@ -24,6 +24,24 @@ export const EmployeeList = () => {
         </List>
     )
 }
+
+
+export const EmployeeCreate = () => {
+    return (
+        <Create>
+            <SimpleForm>
+                <TextInput source="name" />
+                <TextInput source="surname" />
+                <TextInput source="rol" />
+                <TextInput source="phone" />
+                <TextInput source="email" />
+                <TextInput source="password" />
+            </SimpleForm>
+        </Create>
+    )
+}
+
+
 export const EmployeeEdit = () => {
     return (
         <Edit>
@@ -37,20 +55,5 @@ export const EmployeeEdit = () => {
                 <TextInput source="constraseña" />
             </SimpleForm>
         </Edit>
-    )
-}
-
-export const EmployeeCreate = () => {
-    return (
-        <Create>
-            <SimpleForm>
-                <TextInput source="nombre" />
-                <TextInput source="apellido" />
-                <TextInput source="rol" />
-                <TextInput source="telefono" />
-                <TextInput source="email" />
-                <TextInput source="constraseña" />
-            </SimpleForm>
-        </Create>
     )
 }
