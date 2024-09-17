@@ -36,7 +36,7 @@ export const App = () => (
       icon={PeopleIcon} />
 
     <Resource
-      name="donaciones"
+      name="donations"
       list={DonationList}
       create={DonationCreate}
       icon={PaidOutlinedIcon} />
