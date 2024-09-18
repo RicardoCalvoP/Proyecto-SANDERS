@@ -12,7 +12,7 @@ const LoginPage = () => {
     const handleSubmit = (e: any) => {
         e.preventDefault();
         // will call authProvider.login({ email, password })
-        login({ username:'john', password:'doe' }).catch(() => notify("Invalid email or password"));
+        login({ username: 'john', password: 'doe' }).catch(() => notify("Invalid email or password"));
     };
 
     return (
