@@ -4,7 +4,7 @@ import { User, Donation, Employee } from '../Models/models.js';
 const router = express.Router();
 
 // Create new user (POST /users)
-router.post('/users', async (req, res) => {
+router.post('/usuarios', async (req, res) => {
     try {
         const newUser = new User({
             name: req.body.name,
@@ -28,7 +28,7 @@ router.post('/users', async (req, res) => {
 });
 
 // Create new employee (POST /employees)
-router.post('/employees', async (req, res) => {
+router.post('/empleados', async (req, res) => {
     try {
         const newEmployee = new Employee({
             name: req.body.name,
@@ -54,14 +54,14 @@ router.post('/employees', async (req, res) => {
     }
 });
 
-// Create new donation (POST /donations)
-router.post('/donations', async (req, res) => {
+// Create new donation (POST /donaciones)
+router.post('/donaciones', async (req, res) => {
     try {
-        // Search for user from email
+        // Search for user by email
         let user = await User.findOne({ email: req.body.donator_email });
 
-        // If user doesn't exist 
         if (!user) {
+            // If user doesn't exist, create a new user
             user = new User({
                 name: req.body.donator_name,
                 surname: req.body.donator_surname,
@@ -69,13 +69,20 @@ router.post('/donations', async (req, res) => {
                 phone: req.body.donator_phone,
                 num_donations: 1
             });
-        } else {
-            // If user exists just increase num of donations by 1
+        }
+        // If user exists change num_donations by 1
+        else {
             user.num_donations += 1;
+            // Check if any new phone is given
+            if (req.body.donator_phone) { // If there is no phone provided, it keeps last phone value
+                // Change phone param
+                user.phone = req.body.donator_phone;
+            }
         }
 
-        // Check DB, creation of new element '__v:0'
-        const savedUser = await user.save(); // Save or update user
+
+        // Save or update user
+        const savedUser = await user.save();
 
         // Create Donation
         const newDonation = new Donation({
@@ -86,9 +93,8 @@ router.post('/donations', async (req, res) => {
             comment: req.body.comment,
             amount: req.body.amount,
         });
-
         const savedDonation = await newDonation.save(); // Save Donation in DB
-
+        console.log(savedDonation);
         // Respond with user and donation
         res.status(201).json({
             user: {
@@ -115,6 +121,5 @@ router.post('/donations', async (req, res) => {
         res.status(500).json({ err: 'Error al crear Donación' });
     }
 });
-
 
 export default router;

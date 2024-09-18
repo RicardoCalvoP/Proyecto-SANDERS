@@ -5,7 +5,7 @@ const router = express.Router();
 
 // Get every user
 
-router.get('/users', async (req, res) => {
+router.get('/usuarios', async (req, res) => {
     try {
         const users = await User.find();
         const usersWithId = users.map(users => ({
@@ -27,7 +27,7 @@ router.get('/users', async (req, res) => {
 
 // Get name and surname from user id
 
-router.get('/users/:id', async (req, res) => {
+router.get('/usuarios/:id', async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
 
@@ -57,7 +57,7 @@ router.get('/users/:id', async (req, res) => {
 
 
 // Get all donations (GET /donations)
-router.get('/donations', async (req, res) => {
+router.get('/donaciones', async (req, res) => {
     try {
         const donations = await Donation.find();
         const donationWithId = donations.map(donation => ({
@@ -65,6 +65,7 @@ router.get('/donations', async (req, res) => {
             donator_name: donation.donator_name,
             donator_surname: donation.donator_surname,
             donator_email: donation.donator_email,
+            donator_phone: donation.donator_phone,
             comment: donation.comment,
             amount: donation.amount,
             date: donation.date
@@ -79,7 +80,7 @@ router.get('/donations', async (req, res) => {
 });
 
 
-router.get('/employees', async (req, res) => {
+router.get('/empleados', async (req, res) => {
     try {
         const employees = await Employee.find();
         const employeesWithId = employees.map(employees => ({
