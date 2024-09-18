@@ -14,12 +14,12 @@ export const EmployeeList = () => {
         <List>
             <Datagrid>
                 <TextField source="id" />
-                <TextField source="name" />
-                <TextField source="surname" />
-                <TextField source="rol" />
-                <TextField source="phone" />
-                <EmailField source="email" />
-                <TextField source="password" />
+                <TextField source="name" label='Nombre' />
+                <TextField source="surname" label='Apellido' />
+                <TextField source="rol" label='Rol' />
+                <TextField source="phone" label='Telefono' />
+                <EmailField source="email" label='Email' />
+                <TextField source="password" label='Constraseña' />
             </Datagrid>
         </List>
     )
@@ -30,12 +30,12 @@ export const EmployeeCreate = () => {
     return (
         <Create>
             <SimpleForm>
-                <TextInput source="name" />
-                <TextInput source="surname" />
-                <TextInput source="rol" />
-                <TextInput source="phone" />
-                <TextInput source="email" />
-                <TextInput source="password" />
+                <TextInput source="name" label='Nombre' />
+                <TextInput source="surname" label='Apellido' />
+                <TextInput source="rol" label='Rol' />
+                <TextInput source="phone" label='Telefono' />
+                <TextInput source="email" label='Email' />
+                <TextInput source="password" label='Contraseña' />
             </SimpleForm>
         </Create>
     )

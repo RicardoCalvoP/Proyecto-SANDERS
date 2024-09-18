@@ -6,9 +6,6 @@ import {
     Create
 } from "react-admin";
 
-import CIcon from '@coreui/icons-react';
-import cisMoney from '@coreui/icons';
-
 export const DonationList = () => {
     const isSmall = useMediaQuery<Theme>((theme) => theme.breakpoints.down("md"));
 
