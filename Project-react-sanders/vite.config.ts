@@ -9,11 +9,16 @@ export default defineConfig({
         'process.env': process.env,
     },
     server: {
+        /*
+        // HTTPS 
         https: {
             key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
             cert: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
 
-        }
+        }*/
+
+        // HTTP
+        host: true,
     },
 
     base: './',
