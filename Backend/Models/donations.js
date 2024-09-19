@@ -8,7 +8,8 @@ const donationSchema = new mongoose.Schema({
     donator_phone: { type: String },
     comment: { type: String },
     amount: { type: Number, required: true },
-    date: { type: Date, default: Date.now }
+    date: { type: Date, default: Date.now },
+    kind: { type: String, default: 'En linea' }
 
 });
 

@@ -54,7 +54,7 @@ export const spanishMessages = {
             loading: 'Cargando',
             not_found: 'No encontrado',
             show: '%{name} %{recordRepresentation}',
-            empty: 'Aún no hay %{name}.',
+            empty: 'Aún no hay %{name}s.',
             invite: '¿Quieres agregar uno?',
         },
         input: {
