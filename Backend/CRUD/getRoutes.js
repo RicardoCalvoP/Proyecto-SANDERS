@@ -68,7 +68,8 @@ router.get('/donaciones', async (req, res) => {
             donator_phone: donation.donator_phone,
             comment: donation.comment,
             amount: donation.amount,
-            date: donation.date
+            date: donation.date,
+            kind: donation.kind
         }));
 
         res.set('X-Total-Count', donations.length);
@@ -100,5 +101,6 @@ router.get('/empleados', async (req, res) => {
         res.status(500).send('Error fetching employees');
     }
 });
+
 
 export default router;

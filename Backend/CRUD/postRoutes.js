@@ -1,4 +1,5 @@
 import express from 'express';
+import bcrypt from 'bcrypt';
 import { User, Donation, Employee } from '../Models/models.js';
 
 const router = express.Router();
@@ -30,13 +31,18 @@ router.post('/usuarios', async (req, res) => {
 // Create new employee (POST /employees)
 router.post('/empleados', async (req, res) => {
     try {
+
+        const { name, surname, rol, phone, email, password } = req.body;
+        // Hash req.body.password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
         const newEmployee = new Employee({
-            name: req.body.name,
-            surname: req.body.surname,
-            rol: req.body.rol,
-            phone: req.body.phone,
-            email: req.body.email,
-            password: req.body.password
+            name,
+            surname,
+            rol,
+            phone,
+            email,
+            password: hashedPassword
         });
         const savedEmployee = await newEmployee.save(); // Save employee in DB
         res.status(201).json({
@@ -92,6 +98,7 @@ router.post('/donaciones', async (req, res) => {
             donator_phone: req.body.donator_phone,
             comment: req.body.comment,
             amount: req.body.amount,
+            kind: req.body.kind
         });
         const savedDonation = await newDonation.save(); // Save Donation in DB
         console.log(savedDonation);
@@ -113,7 +120,8 @@ router.post('/donaciones', async (req, res) => {
                 donator_phone: savedDonation.donator_phone,
                 comment: savedDonation.comment,
                 amount: savedDonation.amount,
-                date: savedDonation.date
+                date: savedDonation.date,
+                kind: savedDonation.kind,
             }
         });
     } catch (err) {

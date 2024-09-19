@@ -1,13 +1,13 @@
 import { useMediaQuery, Theme } from "@mui/material";
 import { create } from "domain";
 import {
-    List, Datagrid, TextField, ReferenceField, DateField, NumberField, EmailField,
-    SimpleForm, TextInput, NumberInput, DateInput,
+    List, Datagrid, TextField, DateField, NumberField, EmailField,
+    SimpleForm, TextInput, NumberInput,
     Create
 } from "react-admin";
 
 export const DonationList = () => {
-    const isSmall = useMediaQuery<Theme>((theme) => theme.breakpoints.down("md"));
+    const isSmall = useMediaQuery<Theme>((theme) => theme.breakpoints.down("xs"));
 
     return (
 
@@ -20,6 +20,7 @@ export const DonationList = () => {
                 <TextField source="donator_phone" label="Telefono" />
                 <TextField source="comment" label="Comentario" />
                 <NumberField source="amount" label="Monto" />
+                <TextField source="kind" label="Tipo" />
                 <DateField source="date" label="Fecha" />
             </Datagrid>
 
@@ -27,16 +28,36 @@ export const DonationList = () => {
     )
 }
 
-export const DonationCreate = (props: any) => {
+export const OnlineDonationCreate = (props: any) => {
     return (
         <Create {...props}>
-            <SimpleForm>
+            <SimpleForm
+            >
                 <TextInput source="donator_name" label="Nombre" />
                 <TextInput source="donator_surname" label="Apellido" />
                 <TextInput source="donator_email" label="Email" />
                 <TextInput source="donator_phone" label="Telefono" />
                 <TextInput source="comment" label="Comentario" />
                 <NumberInput source="amount" label="Monto" />
+
+            </SimpleForm>
+        </Create>
+    )
+}
+
+export const SANDERSDonationCreate = (props: any) => {
+    return (
+        <Create {...props}>
+            <SimpleForm
+            >
+                <TextInput source="donator_name" label="Nombre" />
+                <TextInput source="donator_surname" label="Apellido" />
+                <TextInput source="donator_email" label="Email" />
+                <TextInput source="donator_phone" label="Telefono" />
+                <TextInput source="comment" label="Comentario" />
+                <NumberInput source="amount" label="Monto" />
+                <TextInput source="kind" label="Forma de Pago" />
+
             </SimpleForm>
         </Create>
 

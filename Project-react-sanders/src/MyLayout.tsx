@@ -12,8 +12,8 @@ const MyLogoutButton = forwardRef((props: any, ref) => {
     const handleClick = () => logout();
     return (
         <MenuItem onClick={handleClick} ref={ref}
-        // It's important to pass the props to allow Material UI to manage the keyboard navigation
-        {...props}>
+            // It's important to pass the props to allow Material UI to manage the keyboard navigation
+            {...props}>
             <ExitIcon /> Logout
         </MenuItem>
     );
