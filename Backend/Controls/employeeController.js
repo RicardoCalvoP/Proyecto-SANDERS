@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
-import Employee from "../Models/employees";
+import Employee from "../Models/employees.js";
 import jwt from 'jsonwebtoken';
 
 // Authenticate employee
-exports.login = async (req, res) => {
+const login = async (req, res) => {
     try {
         const { name, password } = req.body;
         const employee = await Employee.findOne({ name });
@@ -30,3 +30,6 @@ exports.login = async (req, res) => {
         res.status(500).json({ error: 'Error al iniciar sesión' });
     }
 };
+
+
+export default login;

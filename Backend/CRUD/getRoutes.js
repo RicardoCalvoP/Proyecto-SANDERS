@@ -1,6 +1,6 @@
 import express from 'express';
 import { User, Donation, Employee } from '../Models/models.js';
-import authenticateJWT from '../middleware/auth.js'
+import { authenticateJWT } from '../middleware/auth.js'
 
 const router = express.Router();
 
@@ -60,7 +60,7 @@ router.get('/usuarios/:id', authenticateJWT, async (req, res) => {
 
 
 // Get all donations (GET /donations)
-router.get('/donaciones', authenticateJWT, async (req, res) => {
+router.get('/donaciones', authenticateJWT, async (req, res) => { //  authenticateJWT, was removed
     try {
         const donations = await Donation.find();
         const donationWithId = donations.map(donation => ({
@@ -84,7 +84,7 @@ router.get('/donaciones', authenticateJWT, async (req, res) => {
 });
 
 
-router.get('/empleados', authenticateJWT, async (req, res) => {
+router.get('/empleados', async (req, res) => {
     try {
         const employees = await Employee.find();
         const employeesWithId = employees.map(employees => ({

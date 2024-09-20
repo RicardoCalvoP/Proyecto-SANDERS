@@ -34,9 +34,11 @@ router.post('/empleados', async (req, res) => {
     try {
 
         const { name, surname, rol, phone, email, password } = req.body;
-        // Hash req.body.password
-        const hashedPassword = await bcrypt.hash(password, 10);
 
+        // Hash req.body.password
+        //console.log(req);
+        const hashedPassword = await bcrypt.hash(password, 10);
+        console.log(hashedPassword);
         const newEmployee = new Employee({
             name,
             surname,
@@ -45,7 +47,9 @@ router.post('/empleados', async (req, res) => {
             email,
             password: hashedPassword
         });
+        console.log(newEmployee)
         const savedEmployee = await newEmployee.save(); // Save employee in DB
+        console.log(savedEmployee)
         res.status(201).json({
             id: savedEmployee._id,
             name: savedEmployee.name,
@@ -55,6 +59,8 @@ router.post('/empleados', async (req, res) => {
             email: savedEmployee.email,
             password: savedEmployee.password
         });
+        console.log(res);
+        console.log(res);
     }
     catch (err) {
         res.status(500).json({ err: 'Error al crear Empleado' }) // Change to Notify Hook later
