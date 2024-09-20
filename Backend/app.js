@@ -56,8 +56,8 @@ app.get('/', (req, res) => {
 });
 
 // Leer certificados SSL
-const privateKey = fs.readFileSync('certs/server.key', 'utf8');
-const certificate = fs.readFileSync('certs/server.crt', 'utf8');
+const privateKey = fs.readFileSync('certs/ca/server.key', 'utf8');
+const certificate = fs.readFileSync('certs/ca/server.crt', 'utf8');
 const ca = fs.readFileSync('certs/ca/ca.crt', 'utf8');
 const credentials = { key: privateKey, cert: certificate, ca: ca };
 

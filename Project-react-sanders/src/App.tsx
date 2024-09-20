@@ -29,7 +29,7 @@ export const App = () => (
     i18nProvider={i18nProvider}
 
   >
-    {/*
+
 
     <Resource
       name="donaciones"
@@ -54,12 +54,13 @@ export const App = () => (
       create={EmployeeCreate}
       icon={BadgeOutlinedIcon}
     />
- */}
+    {/*
 
     <CustomRoutes>
       <Route path="/admin-dashboard/*" element={<AdminDashboard />} />
     </CustomRoutes>
 
+      */}
   </Admin >
 );
 
