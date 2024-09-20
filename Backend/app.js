@@ -18,18 +18,19 @@ dotenv.config();
 const app = express();
 
 // Habilitar CORS para todas las solicitudes
-app.use(cors({ // Permite que cualquier origen pueda acceder a la API
-    exposedHeaders: ['X-Total-Count'], // Expone el encabezado X-Total-Count
+app.use(cors({
+    origin: 'https://localhost:5001',
+    //origin: 'http://localhost:3000',
+    exposedHeaders: ['X-Total-Count'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
 }));
+
 
 app.use(express.json());
 
 const port = 5001;
-
-// Ruta para probar el backend en el navegador
-app.get('/', (req, res) => {
-    res.send('Hello World - TC2007B!'); // Mensaje que se verá en la ventana del navegador
-});
 
 async function connectDB() {
     try {
@@ -48,6 +49,12 @@ async function connectDB() {
 // Full Code on ./CRUD
 app.use(crudRoutes);
 
+
+// Ruta para probar el backend en el navegador
+app.get('/', (req, res) => {
+    res.send('Hello World - TC2007B!'); // Mensaje que se verá en la ventana del navegador
+});
+
 // Leer certificados SSL
 const privateKey = fs.readFileSync('certs/server.key', 'utf8');
 const certificate = fs.readFileSync('certs/server.crt', 'utf8');
@@ -62,11 +69,15 @@ httpsServer.listen(port, () =>
     console.log(`Server running on port ${port} with HTTPS`)
 )
 
+
 /*
-Servidor HTTP
+//Servidor HTTP
 
 app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
+    connectDB(),
+        console.log(`Server running on http://localhost:${port}`);
 });
 
 */
+
+
