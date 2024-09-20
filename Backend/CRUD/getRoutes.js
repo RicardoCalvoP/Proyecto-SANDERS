@@ -1,11 +1,14 @@
 import express from 'express';
 import { User, Donation, Employee } from '../Models/models.js';
+import authenticateJWT from '../middleware/auth.js'
 
 const router = express.Router();
 
+router.get('/', authenticateJWT)
+
 // Get every user
 
-router.get('/usuarios', async (req, res) => {
+router.get('/usuarios', authenticateJWT, async (req, res) => {
     try {
         const users = await User.find();
         const usersWithId = users.map(users => ({
@@ -27,7 +30,7 @@ router.get('/usuarios', async (req, res) => {
 
 // Get name and surname from user id
 
-router.get('/usuarios/:id', async (req, res) => {
+router.get('/usuarios/:id', authenticateJWT, async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
 
@@ -57,7 +60,7 @@ router.get('/usuarios/:id', async (req, res) => {
 
 
 // Get all donations (GET /donations)
-router.get('/donaciones', async (req, res) => {
+router.get('/donaciones', authenticateJWT, async (req, res) => {
     try {
         const donations = await Donation.find();
         const donationWithId = donations.map(donation => ({
@@ -81,7 +84,7 @@ router.get('/donaciones', async (req, res) => {
 });
 
 
-router.get('/empleados', async (req, res) => {
+router.get('/empleados', authenticateJWT, async (req, res) => {
     try {
         const employees = await Employee.find();
         const employeesWithId = employees.map(employees => ({
