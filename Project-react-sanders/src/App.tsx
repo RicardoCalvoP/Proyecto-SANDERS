@@ -10,7 +10,7 @@ import jsonServerProvider from 'ra-data-json-server';
 import { DonationList, OnlineDonationCreate } from "./Pages/donaciones";
 import { UserList } from './Pages/users';
 import { SANDERSDonationCreate } from './Pages/donaciones';
-import { StatsList } from './Pages/estadisticas';
+// import { StatsList } from './Pages/estadisticas';  // Import when finish 
 import { EmployeeList, EmployeeCreate } from './Pages/empleados';
 import { PeopleIcon, PaidOutlinedIcon, BadgeOutlinedIcon, BarChartOutlinedIcon } from './Components/icons';
 import Dashboard from "./Dashboards/dashboard";
@@ -37,11 +37,13 @@ export const App = () => {
             list={UserList}
             icon={PeopleIcon}
           />
+          {/*
           <Resource
             name="estadisticas"
             list={StatsList}
             icon={BarChartOutlinedIcon}
           />
+           */}
           <Resource
             name="empleados"
             list={EmployeeList}
@@ -54,6 +56,9 @@ export const App = () => {
       <Resource
         name="donaciones"
         list={DonationList}
+        // If admin then create with SANDERS form 
+        // Else create with OnlineDonation as user
+        // (different inputs)
         create={userRole === "admin" ? SANDERSDonationCreate : OnlineDonationCreate}
         icon={PaidOutlinedIcon}
       />
