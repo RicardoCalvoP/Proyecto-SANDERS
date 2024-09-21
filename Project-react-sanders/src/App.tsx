@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Admin, CustomRoutes, Resource } from "react-admin";
+import React, { useState } from "react";
+import { Admin, Resource } from "react-admin";
 import { Route } from 'react-router-dom';
 
 // Imported Files
@@ -7,62 +7,70 @@ import LoginPage from "./Login/loginpage";
 import MyLayout from "./MyLayout";
 import { i18nProvider } from "./Language/i18nProvider";
 import jsonServerProvider from 'ra-data-json-server';
-import AdminDashboard from "./Dashboards/adminDashboard";
-import { DonationList } from "./Components/donaciones";
-
-import { UserList } from './Components/users';
-import { SANDERSDonationCreate } from './Components/donaciones';
-import { StatsList } from './Components/estadisticas';
-import { EmployeeList, EmployeeCreate } from './Components/empleados';
-import { PeopleIcon, PaidOutlinedIcon, BadgeOutlinedIcon, BarChartOutlinedIcon } from './Components/icons'
+import { DonationList, OnlineDonationCreate } from "./Pages/donaciones";
+import { UserList } from './Pages/users';
+import { SANDERSDonationCreate } from './Pages/donaciones';
+// import { StatsList } from './Pages/estadisticas';  // Import when finish 
+import { EmployeeList, EmployeeCreate } from './Pages/empleados';
+import { PeopleIcon, PaidOutlinedIcon, BadgeOutlinedIcon, BarChartOutlinedIcon } from './Components/icons';
 import Dashboard from "./Dashboards/dashboard";
 
 // Data Provider
 const dataProvider = jsonServerProvider('http://localhost:5001');
 
-export const App = () => (
-  <Admin
-    loginPage={LoginPage}
-    layout={MyLayout}
-    dashboard={Dashboard}
-    dataProvider={dataProvider}
-    i18nProvider={i18nProvider}
+export const App = () => {
+  // Cambia el valor aquí para simular diferentes roles
+  const [userRole] = useState("admin"); // Cambia a "user" para ver el comportamiento del usuario regular
 
-  >
+  return (
+    <Admin
+      loginPage={LoginPage}
+      layout={MyLayout}
+      dashboard={Dashboard}
+      dataProvider={dataProvider}
+      i18nProvider={i18nProvider}
+    >
+      {userRole === "admin" && (
+        <>
+          <Resource
+            name="usuarios"
+            list={UserList}
+            icon={PeopleIcon}
+          />
+          {/*
+          <Resource
+            name="estadisticas"
+            list={StatsList}
+            icon={BarChartOutlinedIcon}
+          />
+           */}
+          <Resource
+            name="empleados"
+            list={EmployeeList}
+            create={EmployeeCreate}
+            icon={BadgeOutlinedIcon}
+          />
+        </>
+      )}
 
+      <Resource
+        name="donaciones"
+        list={DonationList}
+        // If admin then create with SANDERS form 
+        // Else create with OnlineDonation as user
+        // (different inputs)
+        create={userRole === "admin" ? SANDERSDonationCreate : OnlineDonationCreate}
+        icon={PaidOutlinedIcon}
+      />
 
-    <Resource
-      name="donaciones"
-      list={DonationList}
-      create={SANDERSDonationCreate} // Creation of donation for employees
-      icon={PaidOutlinedIcon}
-    />
-    <Resource
-      name="usuarios"
-      list={UserList}
-      // create={UsersCreate} user are created when donating
-      icon={PeopleIcon}
-    />
-    <Resource
-      name="estadisticas"
-      list={StatsList}
-      icon={BarChartOutlinedIcon}
-    />
-    <Resource
-      name="empleados"
-      list={EmployeeList}
-      create={EmployeeCreate}
-      icon={BadgeOutlinedIcon}
-    />
-    {/*
-
-    <CustomRoutes>
-      <Route path="/admin-dashboard/*" element={<AdminDashboard />} />
-    </CustomRoutes>
-
+      {/* 
+      Virtual Box Version
+      <CustomRoutes>
+        <Route path="/admin-dashboard/*" element={<AdminDashboard />} />
+      </CustomRoutes>
       */}
-  </Admin >
-);
-
+    </Admin>
+  );
+};
 
 export default App;
