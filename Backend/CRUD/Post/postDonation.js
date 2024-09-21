@@ -1,71 +1,7 @@
 import express from 'express';
-import bcrypt from 'bcrypt';
-import { User, Donation, Employee } from '../Models/models.js';
-import login from '../Controls/employeeController.js'
+import { Donation } from '../../Models/models.js';
 
 const router = express.Router();
-
-// Create new user (POST /users)
-router.post('/usuarios', async (req, res) => {
-    try {
-        const newUser = new User({
-            name: req.body.name,
-            surname: req.body.surname,
-            email: req.body.email,
-            phone: req.body.phone,
-        });
-        const savedUser = await newUser.save(); // Save the user in DB
-        res.status(201).json({
-            id: savedUser._id, // Transformar _id a id para React-Admin
-            name: savedUser.name,
-            surname: savedUser.surname,
-            email: savedUser.email,
-            phone: savedUser.phone,
-        });
-
-    }
-    catch (err) {
-        res.status(500).json({ err: 'Error al crear Usuario' }) // Change to Notify Hook later
-    }
-});
-
-// Create new employee (POST /employees)
-router.post('/empleados', async (req, res) => {
-    try {
-
-        const { name, surname, rol, phone, email, password } = req.body;
-
-        // Hash req.body.password
-        //console.log(req);
-        const hashedPassword = await bcrypt.hash(password, 10);
-        console.log(hashedPassword);
-        const newEmployee = new Employee({
-            name,
-            surname,
-            rol,
-            phone,
-            email,
-            password: hashedPassword
-        });
-        console.log(newEmployee)
-        const savedEmployee = await newEmployee.save(); // Save employee in DB
-        console.log(savedEmployee)
-        res.status(201).json({
-            id: savedEmployee._id,
-            name: savedEmployee.name,
-            surname: savedEmployee.surname,
-            rol: savedEmployee.rol,
-            phone: savedEmployee.phone,
-            email: savedEmployee.email,
-            password: savedEmployee.password
-        });
-        console.log(res);
-        console.log(res);
-    }
-    catch (err) {
-        res.status(500).json({ err: 'Error al crear Empleado' }) // Change to Notify Hook later
-    }
-});
 
 // Create new donation (POST /donaciones)
 router.post('/donaciones', async (req, res) => {
@@ -133,7 +69,7 @@ router.post('/donaciones', async (req, res) => {
         });
     } catch (err) {
         console.error('Error al crear donación:', err);
-        res.status(500).json({ err: 'Error al crear Donación' });
+        res.status(500).json({ error: err.message });
     }
 });
 
