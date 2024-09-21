@@ -1,22 +1,19 @@
 import React, { useState } from "react";
 import { Admin, Resource } from "react-admin";
-import { Route } from 'react-router-dom';
 
 // Imported Files
 import LoginPage from "./Login/loginpage";
 import MyLayout from "./MyLayout";
 import { i18nProvider } from "./Language/i18nProvider";
 import jsonServerProvider from 'ra-data-json-server';
-import { DonationList, OnlineDonationCreate } from "./Pages/donaciones";
+import { DonationList, OnlineDonationCreate, SANDERSDonationCreate } from "./Pages/donaciones";
 import { UserList } from './Pages/users';
-import { SANDERSDonationCreate } from './Pages/donaciones';
 // import { StatsList } from './Pages/estadisticas';  // Import when finish 
 import { EmployeeList, EmployeeCreate } from './Pages/empleados';
 import { PeopleIcon, PaidOutlinedIcon, BadgeOutlinedIcon, BarChartOutlinedIcon } from './Components/icons';
-import Dashboard from "./Dashboards/dashboard";
 
 // Data Provider
-const dataProvider = jsonServerProvider('http://localhost:5001');
+const dataProvider = jsonServerProvider('https://localhost:5001');
 
 export const App = () => {
   // Cambia el valor aquí para simular diferentes roles
@@ -26,11 +23,12 @@ export const App = () => {
     <Admin
       loginPage={LoginPage}
       layout={MyLayout}
-      dashboard={Dashboard}
       dataProvider={dataProvider}
       i18nProvider={i18nProvider}
     >
+
       {userRole === "admin" && (
+
         <>
           <Resource
             name="usuarios"
@@ -43,7 +41,8 @@ export const App = () => {
             list={StatsList}
             icon={BarChartOutlinedIcon}
           />
-           */}
+       */}
+
           <Resource
             name="empleados"
             list={EmployeeList}
@@ -51,9 +50,13 @@ export const App = () => {
             icon={BadgeOutlinedIcon}
           />
         </>
-      )}
+
+
+      )
+      }
 
       <Resource
+
         name="donaciones"
         list={DonationList}
         // If admin then create with SANDERS form 
@@ -63,13 +66,8 @@ export const App = () => {
         icon={PaidOutlinedIcon}
       />
 
-      {/* 
-      Virtual Box Version
-      <CustomRoutes>
-        <Route path="/admin-dashboard/*" element={<AdminDashboard />} />
-      </CustomRoutes>
-      */}
-    </Admin>
+
+    </Admin >
   );
 };
 

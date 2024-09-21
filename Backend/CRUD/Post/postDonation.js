@@ -1,5 +1,5 @@
 import express from 'express';
-import { Donation } from '../../Models/models.js';
+import { Donation, User } from '../../Models/models.js';
 
 const router = express.Router();
 

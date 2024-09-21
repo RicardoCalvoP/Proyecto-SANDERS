@@ -21,7 +21,7 @@ router.get('/empleados', async (req, res) => {
         console.log(employeesWithId);
         res.json(employeesWithId);
     }
-    catch (error) {
+    catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
