@@ -21,7 +21,7 @@ router.get('/donaciones', async (req, res) => { //  authenticateJWT, was removed
         res.set('X-Total-Count', donations.length);
         res.json(donationWithId);
     }
-    catch (error) {
+    catch (err) {
         res.status(500).json({ error: err.message });
     }
 });

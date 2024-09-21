@@ -19,7 +19,7 @@ router.get('/usuarios', async (req, res) => {
         console.log(usersWithId);
         res.json(usersWithId);
     }
-    catch (error) {
+    catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
