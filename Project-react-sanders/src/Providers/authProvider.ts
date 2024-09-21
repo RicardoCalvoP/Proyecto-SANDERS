@@ -1,27 +1,32 @@
 import { AuthProvider, HttpError } from "react-admin";
-import data from "../users.json";
-
 /**
  * This authProvider is only for test purposes. Don't use it in production.
  */
 export const authProvider: AuthProvider = {
-  login: ({ username, password }) => {
-    const user = data.users.find(
-      (u) => u.username === username && u.password === password
-    );
+  login: ({ email, password }) => { // Comunicación con el backend en el proceso de login
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', `https://localhost:5001/login`, true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
 
-    if (user) {
-      // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-      let { password, ...userToPersist } = user;
-      localStorage.setItem("user", JSON.stringify(userToPersist));
-      return Promise.resolve();
-    }
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            const json = JSON.parse(xhr.responseText); // Parsear la respuesta JSON
+            console.log('Response received:', json);
+            localStorage.setItem('auth', JSON.stringify({ ...json })); // Guardar el token en localStorage
+            resolve(json); // Resolver la promesa con la respuesta JSON
+          } else {
+            console.error('Login failed:', xhr.status, xhr.statusText);
+            reject(new Error('Network error')); // Rechazar la promesa si falla
+          }
+        }
+      };
 
-    return Promise.reject(
-      new HttpError("Unauthorized", 401, {
-        message: "Invalid username or password",
-      })
-    );
+      const requestBody = JSON.stringify({ email, password });
+      console.log('Request Body:', requestBody);
+      xhr.send(requestBody); // Enviar el cuerpo de la solicitud como JSON
+    });
   },
   logout: () => {
     localStorage.removeItem("user");
