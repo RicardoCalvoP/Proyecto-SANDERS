@@ -12,8 +12,9 @@ import { UserList } from './Pages/users';
 import { EmployeeList, EmployeeCreate } from './Pages/empleados';
 import { PeopleIcon, PaidOutlinedIcon, BadgeOutlinedIcon, BarChartOutlinedIcon } from './Components/icons';
 
-// Data Provider
-const dataProvider = jsonServerProvider('https://localhost:5001');
+// Providers
+const dataProvider = jsonServerProvider('http://localhost:5001');
+import authProvider from "./Providers/authProvider";
 
 export const App = () => {
   // Cambia el valor aquí para simular diferentes roles
@@ -23,6 +24,7 @@ export const App = () => {
     <Admin
       loginPage={LoginPage}
       layout={MyLayout}
+      authProvider={authProvider}
       dataProvider={dataProvider}
       i18nProvider={i18nProvider}
     >

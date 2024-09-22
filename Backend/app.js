@@ -22,7 +22,7 @@ app.use(cors({ // Permite que cualquier origen pueda acceder a la API
 connectDB();
 // Habilitar CORS para todas las solicitudes HTTPS
 app.use(cors({
-    origin: 'https://localhost:5173',
+    origin: 'http://localhost:5173',
     //origin: 'http://localhost:3000',
     exposedHeaders: ['X-Total-Count'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -46,8 +46,8 @@ app.get('/', (req, res) => {
 */
 
 // Start HTTP Server 
-//startHttpServer(port);
+startHttpServer(port);
 // Start HTTPS Server
-startHttpsServer(port);
+//startHttpsServer(port);
 
 
