@@ -1,17 +1,12 @@
-import express from 'express'
 import bcrypt from 'bcrypt';
-import Employee from "../Models/employees.js";
+import Employee from '../../Models/employees.js'
 import jwt from 'jsonwebtoken';
-const router = express.Router();
-
 
 // Authenticate employee
-router.post('/login', async (req, res) => {
+const login = async (req, res) => {
     try {
-
-        console.log("Request login ", req);
-        const { email, password } = req.body;
-        const employee = await Employee.findOne({ email });
+        const { name, password } = req.body;
+        const employee = await Employee.findOne({ name });
 
         if (!employee) {
             return res.status(401).json({ error: 'Este empleado no trabaja aquí' });
@@ -29,12 +24,12 @@ router.post('/login', async (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
         );
-        res.status(200).json({ token, rol: employee.rol });
-        console.log("Response: ", res);
-    }
-    catch (err) {
-        res.status(500).json({ error: err.message }) // Change to Notify Hook later
-    }
-});
 
-export default router; // Will be called on postRoutes.js
+        res.json({ token, rol: employee.rol });
+    } catch (err) {
+        res.status(500).json({ error: 'Error al iniciar sesión' });
+    }
+};
+
+
+export default login;

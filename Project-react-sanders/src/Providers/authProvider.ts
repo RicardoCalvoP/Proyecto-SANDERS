@@ -1,49 +1,77 @@
-import { AuthProvider, HttpError } from "react-admin";
-/**
- * This authProvider is only for test purposes. Don't use it in production.
- */
-export const authProvider: AuthProvider = {
-  login: ({ email, password }) => { // Comunicación con el backend en el proceso de login
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', `https://localhost:5001/login`, true);
-      xhr.setRequestHeader('Content-Type', 'application/json');
+import { AuthProvider } from 'react-admin';
 
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            const json = JSON.parse(xhr.responseText); // Parsear la respuesta JSON
-            console.log('Response received:', json);
-            localStorage.setItem('auth', JSON.stringify({ ...json })); // Guardar el token en localStorage
-            resolve(json); // Resolver la promesa con la respuesta JSON
-          } else {
-            console.error('Login failed:', xhr.status, xhr.statusText);
-            reject(new Error('Network error')); // Rechazar la promesa si falla
-          }
+const authProvider: AuthProvider = {
+    login: async ({ email, password }) => {
+        const request = new Request(`${import.meta.env.VITE_MONGO_URL}/login`, {
+            method: 'POST',
+            body: JSON.stringify({ email, password }),
+            headers: new Headers({ 'Content-Type': 'application/json' }),
+        });
+
+        const res = await fetch(request);
+        if (res.status > 200) {
+          throw new Error(res.statusText);
+      }
+
+        const { token, rol } = await res.json();
+        localStorage.setItem('token', token);
+        localStorage.setItem('role', rol);
+    },
+    checkError: ({ status }) => {
+        if (status === 401 || status === 403) {
+            localStorage.removeItem('token');
+            return Promise.reject();
         }
-      };
+        return Promise.resolve();
+    },
+    checkAuth: () => {
+        return localStorage.getItem('token')
+            ? Promise.resolve()
+            : Promise.reject();
+    },
+    logout: () => {
+        localStorage.removeItem('token');
+        return Promise.resolve();
+    },
+    getIdentity: () => {
+        try {
+            const { id, name } = JSON.parse(localStorage.getItem('identity') || '{}');
+            return Promise.resolve({ id, name });
+        } catch (error) {
+            return Promise.reject();
+        }
+    },
+    getPermissions: async () => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            return Promise.reject();
+        }
+        try {
+            const request = new Request(`${import.meta.env.VITE_API_URL}/api/auth/permissions`, {
+                method: 'GET',
+                headers: new Headers({
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                }),
+            });
 
-      const requestBody = JSON.stringify({ email, password });
-      console.log('Request Body:', requestBody);
-      xhr.send(requestBody); // Enviar el cuerpo de la solicitud como JSON
-    });
-  },
-  logout: () => {
-    localStorage.removeItem("user");
-    return Promise.resolve();
-  },
-  checkError: () => Promise.resolve(),
-  checkAuth: () =>
-    localStorage.getItem("user") ? Promise.resolve() : Promise.reject(),
-  getPermissions: () => {
-    return Promise.resolve(undefined);
-  },
-  getIdentity: () => {
-    const persistedUser = localStorage.getItem("user");
-    const user = persistedUser ? JSON.parse(persistedUser) : null;
+            const response = await fetch(request);
+            if (response.status < 200 || response.status >= 300) {
+                throw new Error('Failed to fetch permissions');
+            }
 
-    return Promise.resolve(user);
-  },
+            const { role } = await response.json();
+            
+            if (role === 'admin') {
+                return Promise.resolve('admin');
+            } else if (role === 'donor') {
+                return Promise.resolve('donor');
+            }
+        } catch (error) {
+            return Promise.reject('No permissions found');
+        }
+        return Promise.reject();
+    },
 };
 
 export default authProvider;
