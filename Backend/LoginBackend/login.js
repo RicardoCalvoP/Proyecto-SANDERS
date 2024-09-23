@@ -1,6 +1,6 @@
 import express from 'express'
 import bcrypt from 'bcrypt';
-import Employee from "../Models/employees.js";
+import { Employee } from "../Models/models.js";
 import jwt from 'jsonwebtoken';
 const router = express.Router();
 
@@ -9,7 +9,7 @@ const router = express.Router();
 router.post('/login', async (req, res) => {
     try {
 
-        console.log("Request login ", req);
+        console.log("Request login ", req.body);
         const { email, password } = req.body;
         const employee = await Employee.findOne({ email });
 
@@ -30,9 +30,10 @@ router.post('/login', async (req, res) => {
             { expiresIn: '1h' }
         );
         res.status(200).json({ token, rol: employee.rol });
-        console.log("Response: ", res);
+        console.log("Response: ", { token, rol: employee.rol });
     }
     catch (err) {
+        console.log(err);
         res.status(500).json({ error: err.message }) // Change to Notify Hook later
     }
 });

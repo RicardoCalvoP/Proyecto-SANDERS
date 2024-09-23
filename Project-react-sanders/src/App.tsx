@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { Admin, Resource } from "react-admin";
 
 // Imported Files
@@ -8,17 +8,25 @@ import { i18nProvider } from "./Language/i18nProvider";
 import jsonServerProvider from 'ra-data-json-server';
 import { DonationList, OnlineDonationCreate, SANDERSDonationCreate } from "./Pages/donaciones";
 import { UserList } from './Pages/users';
-// import { StatsList } from './Pages/estadisticas';  // Import when finish 
 import { EmployeeList, EmployeeCreate } from './Pages/empleados';
-import { PeopleIcon, PaidOutlinedIcon, BadgeOutlinedIcon, BarChartOutlinedIcon } from './Components/icons';
+import { PeopleIcon, PaidOutlinedIcon, BadgeOutlinedIcon } from './Components/icons';
 
 // Providers
-const dataProvider = jsonServerProvider('http://localhost:5001');
+const dataProvider = jsonServerProvider('https://localhost:5001');
 import authProvider from "./Providers/authProvider";
 
 export const App = () => {
-  // Cambia el valor aquí para simular diferentes roles
-  const [userRole] = useState("admin"); // Cambia a "user" para ver el comportamiento del usuario regular
+  // const [userRole, setUserRole] = useState<string | null>(localStorage.getItem('role'));
+  const [userRole, setUserRole] = useState("");
+
+  /*
+  const handleLogin = async (authData: { email: string; password: string }) => {
+    const rol = await authProvider.login(authData);
+    setUserRole(rol); // Actualiza el rol aquí
+  };
+  */
+
+  useEffect(() => { authProvider.getPermissions({}).then(role => setUserRole(role)); }, []);
 
   return (
     <Admin
@@ -30,21 +38,12 @@ export const App = () => {
     >
 
       {userRole === "admin" && (
-
         <>
           <Resource
             name="usuarios"
             list={UserList}
             icon={PeopleIcon}
           />
-          {/*
-          <Resource
-            name="estadisticas"
-            list={StatsList}
-            icon={BarChartOutlinedIcon}
-          />
-       */}
-
           <Resource
             name="empleados"
             list={EmployeeList}
@@ -52,24 +51,15 @@ export const App = () => {
             icon={BadgeOutlinedIcon}
           />
         </>
-
-
-      )
-      }
+      )}
 
       <Resource
-
         name="donaciones"
         list={DonationList}
-        // If admin then create with SANDERS form 
-        // Else create with OnlineDonation as user
-        // (different inputs)
         create={userRole === "admin" ? SANDERSDonationCreate : OnlineDonationCreate}
         icon={PaidOutlinedIcon}
       />
-
-
-    </Admin >
+    </Admin>
   );
 };
 
