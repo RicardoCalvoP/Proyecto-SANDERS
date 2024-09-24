@@ -13,15 +13,15 @@ export const DonationList = () => {
 
         <List>
             <Datagrid>
-                <TextField source="id" />
-                <TextField source="donator_name" label="Nombre" />
-                <TextField source="donator_surname" label="Apellido" />
-                <EmailField source="donator_email" label="Email" />
-                <TextField source="donator_phone" label="Telefono" />
-                <TextField source="comment" label="Comentario" />
-                <NumberField source="amount" label="Monto" />
+                <TextField source="id" sortable={false} />
+                <TextField source="donator_name" label="Nombre" sortable={true} />
+                <TextField source="donator_surname" label="Apellido" sortable={true} />
+                <EmailField source="donator_email" label="Email" sortable={false} />
+                <TextField source="donator_phone" label="Telefono" sortable={false} />
+                <TextField source="comment" label="Comentario" sortable={false} />
+                <NumberField source="amount" label="Monto" sortable={true} />
                 <TextField source="kind" label="Tipo" />
-                <DateField source="date" label="Fecha" />
+                <DateField source="date" label="Fecha" sortable={true} />
             </Datagrid>
 
         </List>
