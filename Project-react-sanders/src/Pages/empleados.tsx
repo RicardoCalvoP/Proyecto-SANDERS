@@ -13,13 +13,13 @@ export const EmployeeList = () => {
 
         <List>
             <Datagrid>
-                <TextField source="id" />
-                <TextField source="name" label='Nombre' />
-                <TextField source="surname" label='Apellido' />
-                <TextField source="rol" label='Rol' />
-                <TextField source="phone" label='Telefono' />
-                <EmailField source="email" label='Email' />
-                <TextField source="password" label='Constraseña' />
+                <TextField source="id" sortable={false} />
+                <TextField source="name" label='Nombre' sortable={true} />
+                <TextField source="surname" label='Apellido' sortable={true} />
+                <TextField source="rol" label='Rol' sortable={true} />
+                <TextField source="phone" label='Telefono' sortable={false} />
+                <EmailField source="email" label='Email' sortable={false} />
+                <TextField source="password" label='Constraseña' sortable={false} />
             </Datagrid>
         </List>
     )

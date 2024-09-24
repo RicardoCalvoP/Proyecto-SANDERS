@@ -12,12 +12,12 @@ export const UserList = (props: ListProps) => {
     return (
         <List {...props}>
             <Datagrid>
-                <TextField source="id" />
-                <TextField source="name" />
-                <TextField source="surname" />
-                <EmailField source="email" />
-                <TextField source="phone" />
-                <NumberField source="num_donations" />
+                <TextField source="id" sortable={false} />
+                <TextField source="name" sortable={true} />
+                <TextField source="surname" sortable={true} />
+                <EmailField source="email" sortable={false} />
+                <TextField source="phone" sortable={false} />
+                <NumberField source="num_donations" sortable={true} />
             </Datagrid>
         </List>
     )
