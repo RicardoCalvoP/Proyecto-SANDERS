@@ -1,8 +1,9 @@
 import { useMediaQuery, Theme } from "@mui/material";
-import { create } from "domain";
+
+
 import {
-    List, Datagrid, TextField, ReferenceField, EmailField, NumberField, DateField,
-    Edit, EditButton, SimpleForm, TextInput, ReferenceInput, NumberInput, DateInput,
+    List, Datagrid, TextField, EmailField,
+    Edit, EditButton, SimpleForm, TextInput,
     Create
 } from "react-admin";
 
@@ -30,30 +31,36 @@ export const EmployeeCreate = () => {
     return (
         <Create>
             <SimpleForm>
-                <TextInput source="name" label='Nombre' />
-                <TextInput source="surname" label='Apellido' />
-                <TextInput source="rol" label='Rol' />
-                <TextInput source="phone" label='Telefono' />
-                <TextInput source="email" label='Email' />
-                <TextInput source="password" label='Contraseña' />
+                <TextInput source="name" label='Nombre' resettable />
+                <TextInput source="surname" label='Apellido' resettable />
+                <TextInput source="rol" label='Rol' resettable />
+                <TextInput source="phone" label='Telefono' resettable />
+                <TextInput source="email" label='Email' resettable />
+                <TextInput source="password" label='Contraseña' resettable />
             </SimpleForm>
         </Create>
     )
 }
-
 
 export const EmployeeEdit = () => {
     return (
         <Edit>
             <SimpleForm>
                 <TextInput source="id" inputProps={{ disabled: true }} />
-                <TextInput source="nombre" />
-                <TextInput source="apellido" />
-                <TextInput source="rol" />
-                <TextInput source="telefono" />
-                <TextInput source="email" />
-                <TextInput source="constraseña" />
+                <TextInput source="name" inputProps={{ disabled: true }} />
+                <TextInput source="surname" inputProps={{ disabled: true }} />
+                <TextInput source="rol" inputProps={{ disabled: true }} />
+                <TextInput source="phone" inputProps={{ disabled: true }} />
+                <TextInput source="email" inputProps={{ disabled: true }} />
+
+                {/* Password field without showing the previous value */}
+                <TextInput
+                    source="password"
+                    label="Nueva Contraseña"
+                    type="password"
+                    resettable
+                />
             </SimpleForm>
         </Edit>
-    )
-}
+    );
+};

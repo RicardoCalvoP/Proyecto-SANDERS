@@ -8,7 +8,7 @@ import { i18nProvider } from "./Language/i18nProvider";
 import jsonServerProvider from 'ra-data-json-server';
 import { DonationList, OnlineDonationCreate, SANDERSDonationCreate } from "./Pages/donaciones";
 import { UserList } from './Pages/users';
-import { EmployeeList, EmployeeCreate } from './Pages/empleados';
+import { EmployeeList, EmployeeCreate, EmployeeEdit } from './Pages/empleados';
 import { PeopleIcon, PaidOutlinedIcon, BadgeOutlinedIcon } from './Components/icons';
 
 // Providers
@@ -45,6 +45,7 @@ export const App = () => {
             name="empleados"
             list={EmployeeList}
             create={EmployeeCreate}
+            edit={EmployeeEdit}
             icon={BadgeOutlinedIcon}
           />
         </>

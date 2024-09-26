@@ -41,5 +41,35 @@ router.get('/empleados', async (req, res) => {
     }
 });
 
+// API route to get employee by ID
+router.get('/empleados/:id', async (req, res) => {
+    try {
+        // Find employee by ID
+        const employee = await Employee.findById(req.params.id);
+        if (!employee) {
+            return res.status(404).json({ error: 'Employee not found' });
+        }
+
+        // Transform the employee object to include 'id' instead of '_id'
+        const employeeWithId = {
+            id: employee._id, // Convert _id to id for React Admin
+            name: employee.name,
+            surname: employee.surname,
+            email: employee.email,
+            phone: employee.phone,
+            password: employee.password,
+            rol: employee.rol,
+        };
+        res.set('X-Total-Count', 1);
+        console.log(employeeWithId);
+        res.json(employeeWithId);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Error fetching employee' });
+    }
+});
+
+
+
 
 export default router;
