@@ -18,6 +18,7 @@ router.post('/login', async (req, res) => {
         }
 
         const isMatch = await bcrypt.compare(password, employee.password);
+        console.log("expected password ", password);
 
         if (!isMatch) {
             return res.status(401).json({ error: 'Contraseña incorrecta' });
