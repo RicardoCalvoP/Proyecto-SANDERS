@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/usuarios', async (req, res) => {
     try {
         // Get parameters sort & order from frontend
-        const { _sort = 'date', _order = 'ASC' } = req.query;
+        const { _sort = 'date', _order = 'ASC', name, surname, email } = req.query;
         // Convert order to mongoose format
         const sortOrder = _order === 'ASC' ? 1 : -1;
 
@@ -22,7 +22,20 @@ router.get('/usuarios', async (req, res) => {
 
         //Create order object for mongo
         const sortQuery = { [sortField]: sortOrder };
-        const users = await User.find().sort(sortQuery);
+
+        // Building filter query based on provided filters (role and email)
+        const filterQuery = {};
+
+        if (name) {
+            filterQuery.name = name;
+        }
+        if (surname) {
+            filterQuery.surname = surname;
+        }
+        if (email) {
+            filterQuery.email = email;
+        }
+        const users = await User.find(filterQuery).sort(sortQuery);
         const usersWithId = users.map(users => ({
             id: users._id, // Transformar _id a id para React-Admin
             name: users.name,
