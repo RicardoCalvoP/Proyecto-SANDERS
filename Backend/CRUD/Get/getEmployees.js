@@ -6,8 +6,8 @@ import router from './getUsers.js';
 // Get all employees (GET /employees)
 router.get('/empleados', async (req, res) => {
     try {
-        // Get parameters sort & order from frontend
-        const { _sort = 'date', _order = 'ASC' } = req.query;
+        const { _sort = 'rol', _order = 'ASC', name, surname, rol, email } = req.query;
+
         // Convert order to mongoose format
         const sortOrder = _order === 'ASC' ? 1 : -1;
 
@@ -17,26 +17,46 @@ router.get('/empleados', async (req, res) => {
             surname: 'surname',
             rol: 'rol',
         };
-        // Verify if the sort field exists in map
-        const sortField = sortFields[_sort] || 'date'; // Default: sort date if any there's no input
+        const sortField = sortFields[_sort] || 'date'; // Default: sort by date if no input
 
-        //Create order object for mongo
+        // Create order object for MongoDB
         const sortQuery = { [sortField]: sortOrder };
-        const employees = await Employee.find().sort(sortQuery);
-        const employeesWithId = employees.map(employees => ({
-            id: employees._id, // Transform _id to id for React-Admin
-            name: employees.name,
-            surname: employees.surname,
-            rol: employees.rol,
-            phone: employees.phone,
-            email: employees.email,
-            password: employees.password
+
+        // Building filter query based on provided filters (role and email)
+        const filterQuery = {};
+
+        if (name) {
+            filterQuery.name = name;
+        }
+        if (surname) {
+            filterQuery.surname = surname;
+        }
+        // Add role filter if provided
+        if (rol) {
+            filterQuery.rol = rol;
+        }
+
+        // Add email filter if provided
+        if (email) {
+            filterQuery.email = email;
+        }
+
+        // Execute query with filters and sorting
+        const employees = await Employee.find(filterQuery).sort(sortQuery);
+        const employeesWithId = employees.map(employee => ({
+            id: employee._id, // Transform _id to id for React-Admin
+            name: employee.name,
+            surname: employee.surname,
+            rol: employee.rol,
+            phone: employee.phone,
+            email: employee.email,
+            password: employee.password
         }));
+
+        // Set the X-Total-Count header required by React-Admin for pagination
         res.set('X-Total-Count', employees.length);
-        console.log(employeesWithId);
         res.json(employeesWithId);
-    }
-    catch (err) {
+    } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });

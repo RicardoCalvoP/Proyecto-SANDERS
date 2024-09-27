@@ -7,7 +7,7 @@ router.get('/donaciones', async (req, res) => { //  authenticateJWT, was removed
     try {
 
         // Get parameters sort & order from frontend
-        const { _sort = 'date', _order = 'ASC' } = req.query;
+        const { _sort = 'date', _order = 'ASC', donator_name, donator_surname, donator_email, kind } = req.query;
         // Convert order to mongoose format
         const sortOrder = _order === 'ASC' ? 1 : -1;
 
@@ -18,12 +18,29 @@ router.get('/donaciones', async (req, res) => { //  authenticateJWT, was removed
             amount: 'amount',
             date: 'date',
         };
+
         // Verify if the sort field exists in map
-        const sortField = sortFields[_sort] || 'date'; // Default: sort date if any there's no input
+        const sortField = sortFields[_sort] || 'rol'; // Default: sort date if any there's no input
 
         //Create order object for mongo
         const sortQuery = { [sortField]: sortOrder };
-        const donations = await Donation.find().sort(sortQuery);
+
+        const filterQuery = {};
+
+        if (donator_name) {
+            filterQuery.donator_name = donator_name;
+        }
+        if (donator_surname) {
+            filterQuery.donator_surname = donator_surname;
+        }
+        if (donator_email) {
+            filterQuery.donator_email = donator_email;
+        }
+        if (kind) {
+            filterQuery.kind = kind;
+        }
+
+        const donations = await Donation.find(filterQuery).sort(sortQuery);
         const donationWithId = donations.map(donation => ({
             id: donation._id, // Transform _id to id for React-Admin
             donator_name: donation.donator_name,
