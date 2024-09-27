@@ -31,10 +31,10 @@ export const App = () => {
       <Resource
         name="donaciones"
         list={DonationList}
-        create={userRole === "admin" ? SANDERSDonationCreate : OnlineDonationCreate}
+        create={userRole === "Admin" ? SANDERSDonationCreate : OnlineDonationCreate}
         icon={PaidOutlinedIcon}
       />
-      {userRole === "admin" && (
+      {userRole === "Admin" && (
         <>
           <Resource
             name="usuarios"
