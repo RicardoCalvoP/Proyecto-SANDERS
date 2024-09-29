@@ -1,5 +1,6 @@
 import express from 'express';
 import { Donation, User } from '../../Models/models.js';
+import sendEmail from '../../MailSender/Sender.js';
 
 const router = express.Router();
 
@@ -45,6 +46,9 @@ router.post('/donaciones', async (req, res) => {
         });
         const savedDonation = await newDonation.save(); // Save Donation in DB
         console.log(savedDonation);
+        // Send thank-you email after the donation has been successfully saved
+        await sendEmail(req.body.donator_email, req.body.donator_name, req.body.amount);
+
         // Respond with user and donation
         res.status(201).json({
             user: {

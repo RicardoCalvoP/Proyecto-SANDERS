@@ -31,6 +31,14 @@ const LoginPage = () => {
         try {
             // Attempt to log in with the provided email and password
             await login({ email, password });
+
+            // Get name from localStorage (assuming you store it in authProvider)
+            const identity = JSON.parse(localStorage.getItem('identity') || '{}');
+            const userName = identity.name;
+
+            // Show welcome notification with user's name
+            notify(`¡Te damos la bienvenida, ${userName}!`, { type: 'success' }); // Success notification
+
         } catch (error) {
             // If login fails, set an error message
             setError('Correo o contraseña incorrectos. Inténtalo de nuevo.');

@@ -13,9 +13,12 @@ const authProvider: AuthProvider = {
             throw new Error(res.statusText);
         }
 
-        const { token, rol } = await res.json();
+        const { token, rol, name } = await res.json();
         localStorage.setItem('token', token);
         localStorage.setItem('role', rol);
+        localStorage.setItem('name', name)
+        localStorage.setItem('identity', JSON.stringify({ email, name }));
+
     },
     checkError: ({ status }) => {
         if (status === 401 || status === 403) {
@@ -32,12 +35,13 @@ const authProvider: AuthProvider = {
     logout: () => {
         localStorage.removeItem('token');
         localStorage.removeItem('role');
+        localStorage.removeItem('identity');
         return Promise.resolve();
     },
     getIdentity: () => {
         try {
-            const { id, name } = JSON.parse(localStorage.getItem('identity') || '{}');
-            return Promise.resolve({ id, name });
+            const { id, email, name } = JSON.parse(localStorage.getItem('identity') || '{}');
+            return Promise.resolve({ id, email, name });
         } catch (error) {
             return Promise.reject();
         }
