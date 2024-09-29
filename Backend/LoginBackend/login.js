@@ -30,7 +30,7 @@ router.post('/login', async (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
         );
-        res.status(200).json({ token, rol: employee.rol });
+        res.status(200).json({ token, rol: employee.rol, name: employee.name });
         console.log("Response: ", { token, rol: employee.rol });
     }
     catch (err) {
