@@ -5,6 +5,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material'; // Import icons
 
 // Import background image
 import backgroundImage from './Images/Image4.jpg'; // Local image route
+import logoImage from './Images/logo2.jpg';
 
 const LoginPage = () => {
     const [loading, setLoading] = useState(false); // Tracks if the login process is ongoing
@@ -79,6 +80,10 @@ const LoginPage = () => {
                     gap: 2, // Add space between form elements
                 }}
             >
+
+                <Box sx={{ marginTop: '-75px' }}>
+                    <img src={logoImage} alt="Logo" style={{ maxWidth: '200px' }} /> {/* Adjust the maxWidth as needed */}
+                </Box>
 
                 <Typography variant="h4" component="h1" sx={{ color: '#333', marginBottom: '1.5rem' }}>
                     Iniciar Sesión
