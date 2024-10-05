@@ -5,7 +5,7 @@ import { Employee } from '../../Models/models.js';
 const router = express.Router();
 
 // Create new employee (POST /employees)
-router.post('/empleados', async (req, res) => {
+router.post('/employee', async (req, res) => {
     try {
 
         const { name, surname, rol, phone, email, password } = req.body;

@@ -3,7 +3,7 @@ import { Donation } from '../../Models/models.js'
 import router from './getUsers.js';
 
 // Get all donations (GET /donations)
-router.get('/donaciones', async (req, res) => { //  authenticateJWT, was removed
+router.get('/donations', async (req, res) => { //  authenticateJWT, was removed
     try {
 
         // Get parameters sort & order from frontend
