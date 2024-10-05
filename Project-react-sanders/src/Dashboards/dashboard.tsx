@@ -28,7 +28,7 @@ const Dashboard = () => {
     useEffect(() => {
         if (!loading) {
             if (userRole === "Admin") {
-                navigate("/admin-dashboard"); // Redirect to the Admin dashboard
+                navigate("/admin"); // Redirect to the Admin dashboard
             } else if (userRole === "Usuario") {
                 navigate("/donator"); // Redirect to the donation page for users
             } else {

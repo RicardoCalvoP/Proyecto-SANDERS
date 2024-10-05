@@ -11,7 +11,14 @@ import jsonServerProvider from 'ra-data-json-server';
 import Dashboard from "./Dashboards/dashboard";
 import DashboardAdmin from "./Dashboards/adminDashboard";
 import DashboardUser from "./Dashboards/userDashboards";
-import ThankYouPage from "./Pages/thankYouPage";
+
+// Import Pages
+import DonationsPage from "./Pages/AdminPages/donationsPage"
+import CreateDonationPage from "./Pages/AdminPages/createDonationPage"
+import UsersPage from "./Pages/AdminPages/usersPage"
+import EmployeesPage from "./Pages/AdminPages/employeePage"
+import CreateEmployee from "./Pages/AdminPages/createEmployeePage"
+import ThankYouPage from "./Pages/UserPages/thankYouPage";
 
 // Providers
 const dataProvider = jsonServerProvider('https://localhost:5001');
@@ -30,9 +37,17 @@ export const App = () => {
 
     >
       <CustomRoutes>
-        <Route path="/admin-dashboard" element={<DashboardAdmin />} />
-        <Route path="/donator" element={<DashboardUser />} />
-        <Route path="/thank-you" element={<ThankYouPage />} />
+        // Admin pages
+        <Route path="/admin" element={<DashboardAdmin />} /> // Main admin page
+        <Route path="/admin/donations" element={<DonationsPage />} /> // List of Donations
+        <Route path="/admin/create/donations" element={<CreateDonationPage />} /> // Create Donations
+        <Route path="/admin/users" element={<UsersPage />} /> // List of Users
+        <Route path="/admin/employees" element={<EmployeesPage />} /> // List of Employees
+        <Route path="/admin/create/employee" element={<CreateEmployee />} /> // List of Employees
+
+        // User pages
+        <Route path="/donator" element={<DashboardUser />} /> // Main user pages, donation forms
+        <Route path="/thank-you" element={<ThankYouPage />} /> // Side page with a small thank message
       </CustomRoutes>
 
 
