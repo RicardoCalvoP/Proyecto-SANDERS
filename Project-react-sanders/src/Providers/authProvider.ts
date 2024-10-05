@@ -19,6 +19,10 @@ const authProvider: AuthProvider = {
         localStorage.setItem('name', name)
         localStorage.setItem('identity', JSON.stringify({ email, name }));
 
+        // Emit an event to notify the application of a change
+        const event = new Event('storage');
+        window.dispatchEvent(event); // Disparar un evento de almacenamiento
+
     },
     checkError: ({ status }) => {
         if (status === 401 || status === 403) {
@@ -36,6 +40,7 @@ const authProvider: AuthProvider = {
         localStorage.removeItem('token');
         localStorage.removeItem('role');
         localStorage.removeItem('identity');
+        localStorage.removeItem('name')
         return Promise.resolve();
     },
     getIdentity: () => {
