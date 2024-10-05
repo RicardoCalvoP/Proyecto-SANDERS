@@ -3,9 +3,6 @@ import { Box, Typography } from '@mui/material';
 
 const UserDashboard = (props: any) => {
 
-    const redirect = useRedirect(); // Hook to handle redirection
-
-
     return (
         <Box
             sx={{
@@ -57,6 +54,7 @@ const UserDashboard = (props: any) => {
                     <TextInput
                         source="donator_name"
                         label="Nombre"
+                        resettable
                         fullWidth
                         required
                         inputProps={{
@@ -68,6 +66,7 @@ const UserDashboard = (props: any) => {
                     <TextInput
                         source="donator_surname"
                         label="Apellido"
+                        resettable
                         fullWidth
                         required
                         inputProps={{
@@ -79,6 +78,7 @@ const UserDashboard = (props: any) => {
                     <TextInput
                         source="donator_email"
                         label="Correo"
+                        resettable
                         fullWidth
                         required
                         type="email"
@@ -91,6 +91,7 @@ const UserDashboard = (props: any) => {
                     <TextInput
                         source="donator_phone"
                         label="Teléfono (opcional)"
+                        resettable
                         fullWidth
                         type="tel"
                         inputProps={{
@@ -102,6 +103,7 @@ const UserDashboard = (props: any) => {
                     <TextInput
                         source="comment"
                         label="Comentario (opcional)"
+                        resettable
                         fullWidth
                         multiline
                         inputProps={{
