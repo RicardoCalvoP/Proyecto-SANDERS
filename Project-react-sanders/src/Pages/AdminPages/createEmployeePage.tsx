@@ -1,7 +1,7 @@
-import { Create, SimpleForm, TextInput, NumberInput, useRedirect, Title } from 'react-admin';
+import { Create, SimpleForm, TextInput, NumberInput, SelectInput } from 'react-admin';
 import { Box, Typography } from '@mui/material';
 
-const UserDashboard = (props: any) => {
+const CreateEmployee = (props: any) => {
 
     return (
         <Box
@@ -28,11 +28,11 @@ const UserDashboard = (props: any) => {
                     fontSize: '1.8rem',
                 }}
             >
-                Crear donación
+                Crear Empleado
             </Typography>
 
             {/* Set title prop to null to prevent default title generation */}
-            <Create {...props} resource="donaciones" title={" "} redirect={'/thank-you'} >
+            <Create {...props} resource="employee" title={" "} redirect={'/admin/employees'} >
                 <SimpleForm  // Handles the submit event and redirects
                     sx={{
                         '& .MuiInputBase-input': {
@@ -52,11 +52,11 @@ const UserDashboard = (props: any) => {
                 >
                     {/* First Name */}
                     <TextInput
-                        source="donator_name"
+                        source="name"
                         label="Nombre"
-                        resettable
                         fullWidth
                         required
+                        resettable
                         inputProps={{
                             style: { marginTop: '10px' },
                         }}
@@ -64,24 +64,11 @@ const UserDashboard = (props: any) => {
 
                     {/* Last Name */}
                     <TextInput
-                        source="donator_surname"
+                        source="surname"
                         label="Apellido"
-                        resettable
                         fullWidth
                         required
-                        inputProps={{
-                            style: { marginTop: '10px' },
-                        }}
-                    />
-
-                    {/* Email */}
-                    <TextInput
-                        source="donator_email"
-                        label="Correo"
                         resettable
-                        fullWidth
-                        required
-                        type="email"
                         inputProps={{
                             style: { marginTop: '10px' },
                         }}
@@ -89,37 +76,55 @@ const UserDashboard = (props: any) => {
 
                     {/* Phone */}
                     <TextInput
-                        source="donator_phone"
-                        label="Teléfono (opcional)"
-                        resettable
+                        source="phone"
+                        label="Teléfono"
                         fullWidth
                         type="tel"
+                        resettable
                         inputProps={{
                             style: { marginTop: '10px' },
                         }}
                     />
 
-                    {/* Comment */}
+                    {/* Email */}
                     <TextInput
-                        source="comment"
-                        label="Comentario (opcional)"
+                        source="email"
+                        label="Correo"
+                        fullWidth
+                        required
+                        type="email"
+                        resettable
+                        inputProps={{
+                            style: { marginTop: '10px' },
+                        }}
+                    />
+
+
+                    {/*Password */}
+                    <TextInput
+                        source="password"
+                        label="Contraseña"
                         resettable
                         fullWidth
                         multiline
+                        type="password"
                         inputProps={{
                             style: { marginTop: '10px' },
                         }}
                     />
 
-                    {/* Amount */}
-                    <NumberInput
-                        source="amount"
-                        label="Monto a donar"
+                    {/* Rol */}
+                    <SelectInput
+                        source="rol"
+                        label="Rol"
+                        choices={[
+                            { id: 'Admin', name: 'Admin' },
+                            { id: 'Usuario', name: 'Usuario' }
+                        ]}
+                        emptyText=""
                         fullWidth
                         required
-                        inputProps={{
-                            style: { marginTop: '10px' },
-                        }}
+                        inputProps={{ style: { marginTop: '10px' } }}
                     />
                 </SimpleForm>
             </Create>
@@ -127,4 +132,4 @@ const UserDashboard = (props: any) => {
     );
 };
 
-export default UserDashboard;
+export default CreateEmployee;

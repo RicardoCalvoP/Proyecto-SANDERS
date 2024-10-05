@@ -1,7 +1,7 @@
-import { Create, SimpleForm, TextInput, NumberInput, useRedirect, Title } from 'react-admin';
+import { Create, SimpleForm, TextInput, NumberInput, SelectInput } from 'react-admin';
 import { Box, Typography } from '@mui/material';
 
-const UserDashboard = (props: any) => {
+const CreateDonationPage = (props: any) => {
 
     return (
         <Box
@@ -32,7 +32,7 @@ const UserDashboard = (props: any) => {
             </Typography>
 
             {/* Set title prop to null to prevent default title generation */}
-            <Create {...props} resource="donaciones" title={" "} redirect={'/thank-you'} >
+            <Create {...props} resource="donaciones" title={" "} redirect={'/admin/donations'} >
                 <SimpleForm  // Handles the submit event and redirects
                     sx={{
                         '& .MuiInputBase-input': {
@@ -121,10 +121,25 @@ const UserDashboard = (props: any) => {
                             style: { marginTop: '10px' },
                         }}
                     />
+
+                    {/* Type */}
+                    <SelectInput
+                        source="kind"
+                        label="Tipo de Donación"
+                        choices={[
+                            { id: 'Efectivo', name: 'Efectivo' },
+                            { id: 'Tarjeta', name: 'Tarjeta' },
+                            { id: 'Transferencia', name: 'Transferencia' }
+                        ]}
+                        emptyText="En linea"
+                        fullWidth
+                        required
+                        inputProps={{ style: { marginTop: '10px' } }}
+                    />
                 </SimpleForm>
             </Create>
         </Box >
     );
 };
 
-export default UserDashboard;
+export default CreateDonationPage;

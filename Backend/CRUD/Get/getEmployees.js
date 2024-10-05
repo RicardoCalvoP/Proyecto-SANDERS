@@ -4,7 +4,7 @@ import { Employee } from '../../Models/models.js'
 import router from './getUsers.js';
 
 // Get all employees (GET /employees)
-router.get('/empleados', async (req, res) => {
+router.get('/employees', async (req, res) => {
     try {
         const { _sort = 'rol', _order = 'ASC', name, surname, rol, email } = req.query;
 
