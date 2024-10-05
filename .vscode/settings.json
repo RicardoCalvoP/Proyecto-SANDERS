@@ -2,5 +2,19 @@
     "editor.fontFamily": "'Consolas'",
     "files.associations": {
         "iostream": "cpp"
-    }
+    },
+    "cSpell.ignoreWords": [
+        "Crear",
+        "Gracias",
+        "ayuda",
+        "donaciones",
+        "donación",
+        "loginpage",
+        "mandada",
+        "otra",
+        "éxito"
+    ],
+    "cSpell.words": [
+        "Usuario"
+    ]
 }
