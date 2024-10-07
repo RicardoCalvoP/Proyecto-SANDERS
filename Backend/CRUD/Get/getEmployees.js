@@ -62,7 +62,7 @@ router.get('/employees', async (req, res) => {
 });
 
 // API route to get employee by ID
-router.get('/empleados/:id', async (req, res) => {
+router.get('/employees/:id', async (req, res) => {
     try {
         // Find employee by ID
         const employee = await Employee.findById(req.params.id);

@@ -29,7 +29,7 @@ const DonationFilter = (props: any) => (
                 { id: 'Transferencia', name: 'Transferencia' }
             ]}
             alwaysOn
-            emptyText="Ningún filtro"  // Texto para la opción vacía
+            emptyText="Ningún filtro"  // Texto for empty option
             parse={(value) => value === '' ? null : value}  // Analizar el valor vacío como nulo
         />
 
@@ -48,7 +48,7 @@ const DonationsPage = () => {
     return (
         <Box sx={{ padding: 4 }}>
 
-            <Box sx={{ display: 'flex', justifyContent: 'center' }}> {/* Centra el botón en el eje X */}
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                 <Button
                     variant="contained"
                     onClick={handleCreateDonation}
