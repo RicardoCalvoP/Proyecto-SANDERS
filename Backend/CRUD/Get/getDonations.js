@@ -95,7 +95,7 @@ router.get('/donations/recent/:num', async (req, res) => {
     }
 });
 
-// Endpoint para obtener las donaciones de los últimos 7 días
+// Get donations from 7 days ago
 router.get('/donations/week', async (req, res) => {
     try {
         // Get the current date
@@ -192,7 +192,7 @@ router.get('/donations/top-donors-by-amount', async (req, res) => {
                 }
             },
             { $sort: { totalAmount: -1 } },   // Sort by total amount in descending order
-            { $limit: 5 }                     // Return only the top 3
+            { $limit: 3 }                     // Return only the top 3
         ]);
         res.json(topDonorsByAmount);
     } catch (error) {
@@ -214,7 +214,7 @@ router.get('/donations/top-donors-by-count', async (req, res) => {
                 }
             },
             { $sort: { count: -1 } },   // Sort by count in descending order
-            { $limit: 5 }               // Return only the top 3
+            { $limit: 3 }               // Return only the top 3
         ]);
         res.json(topDonorsByCount);
     } catch (error) {
