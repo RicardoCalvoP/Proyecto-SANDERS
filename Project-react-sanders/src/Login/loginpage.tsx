@@ -2,6 +2,7 @@ import { useState } from "react"; // Import React hooks for state management
 import { useLogin, useNotify } from 'react-admin'; // Import React Admin's login function and notification system
 import { Box, Button, TextField, CircularProgress, Typography, IconButton, InputAdornment, Alert } from '@mui/material'; // Import Material UI components for styling
 import { Visibility, VisibilityOff } from '@mui/icons-material'; // Import icons to toggle password visibility
+import { useNavigate } from 'react-router-dom'; // Ensure this is imported
 
 // Import background image
 import backgroundImage from './Images/Image4.jpg'; // Local image route
@@ -15,6 +16,8 @@ const LoginPage = () => {
     const [error, setError] = useState(''); // Tracks any login errors
     const login = useLogin(); // React Admin's login function to authenticate users
     const notify = useNotify(); // React Admin's notification system for alerts
+    const navigate = useNavigate(); // Import navigation hook
+
 
     // Function triggered when the login form is submitted
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -36,9 +39,16 @@ const LoginPage = () => {
             // Get name from localStorage (assuming you store it in authProvider)
             const identity = JSON.parse(localStorage.getItem('identity') || '{}');
             const userName = identity.name;
+            const userRol = identity.rol;
 
             // Show welcome notification with user's name
             notify(`¡Te damos la bienvenida, ${userName}!`, { type: 'success' }); // Success notification
+            if (userRol === "Admin") {
+                navigate("/admin"); // Redirect to the Admin dashboard
+            } else if (userRol === "Usuario") {
+                navigate("/donator"); // Redirect to the donation page for users
+            }
+
 
         } catch (error) {
             // If login fails, set an error message
