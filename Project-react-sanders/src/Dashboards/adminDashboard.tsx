@@ -8,27 +8,26 @@ import TopDonorsByAmount from '../Pages/Charts/topDonatorsByAmount';
 
 const Overview = () => {
     return (
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', textAlign: 'center', justifyContent: 'space-around' }}>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', textAlign: 'center', justifyContent: 'space-around', marginTop: -10 }}>
+
 
             <Box sx={{ flex: 1, minWidth: '40%' }}>
                 <LastDonations />
             </Box>
-
-            <Box sx={{ flex: 1, minWidth: '40%' }}>
-                <WeekChart />
-            </Box>
-
             <Box sx={{ flex: 1, minWidth: '40%' }}>
                 <TypeDonation />
             </Box>
-            <Box sx={{ flex: 1, minWidth: '40%' }}>
-                <h3>Algo va a ir aqui</h3>            </Box>
+
+            <Box sx={{ flex: 1, minWidth: '70%' }}>
+                <WeekChart />
+            </Box>
+
 
             <Box sx={{ flex: 1, minWidth: '40%' }}>
-                <TopDonorsByCount />
+                <TopDonorsByAmount />
             </Box>
             <Box sx={{ flex: 1, minWidth: '40%' }}>
-                <TopDonorsByAmount />
+                <TopDonorsByCount />
             </Box>
         </Box>
 

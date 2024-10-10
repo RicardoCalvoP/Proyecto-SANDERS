@@ -29,7 +29,7 @@ const TopDonorsByAmount = () => {
         <Box sx={{ margin: '25px', padding: 4, textAlign: 'center', boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.7)', borderRadius: '25px', height: '575px' }}>
 
             <Box sx={{ marginBottom: '55px' }}>
-                <Typography variant="h4" gutterBottom >Top 3 Donors by Total Donation Amount</Typography>
+                <Typography variant="h4" gutterBottom >Mayores aportadores</Typography>
             </Box>
 
             <ResponsiveContainer width="100%" height={350}>
@@ -48,7 +48,7 @@ const TopDonorsByAmount = () => {
                     <Tooltip
                         formatter={(value) => formatCurrency(Number(value))} // Format tooltip
                     />
-                    <Bar dataKey="totalAmount" fill="#82ca9d" />
+                    <Bar dataKey="totalAmount" fill="#008000" />
                 </BarChart>
             </ResponsiveContainer>
         </Box>

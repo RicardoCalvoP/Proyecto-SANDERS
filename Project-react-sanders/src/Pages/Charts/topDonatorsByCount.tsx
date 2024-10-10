@@ -24,16 +24,22 @@ const TopDonorsByCount = () => {
         <Box sx={{ margin: '25px', padding: 4, textAlign: 'center', boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.7)', borderRadius: '25px', height: '575px' }}>
 
             <Box sx={{ marginBottom: '55px' }}>
-                <Typography variant="h4" gutterBottom>Top 3 Donors by Donation Count</Typography>
+                <Typography variant="h4" gutterBottom>Más veces donadas</Typography>
             </Box>
 
             <ResponsiveContainer width="100%" height={350}>
                 <BarChart data={topDonorsByCount}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="_id" />
+                    <XAxis
+                        dataKey="_id"
+                        height={75}
+                        angle={15}
+                        tickMargin={20}
+                        interval={0}
+                    />
                     <YAxis />
                     <Tooltip />
-                    <Bar dataKey="count" fill="#8884d8" />
+                    <Bar dataKey="count" fill="#000080" />
                 </BarChart>
             </ResponsiveContainer>
         </Box>

@@ -35,7 +35,12 @@ const EmployeesPage = () => {
 
     return (
 
-        <Box sx={{ padding: 4 }}>
+        <Box sx={{
+            paddingLeft: 4,
+            paddingRight: 7,
+            marginTop: -5
+        }}
+        >
 
             <Box sx={{ display: 'flex', justifyContent: 'center' }}> {/* Centra el botón en el eje X */}
                 <Button
