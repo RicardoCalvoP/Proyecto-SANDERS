@@ -3,6 +3,13 @@ import nodemailer from "nodemailer";
 // Define a route for sending emails
 const sendEmail = async (donator_email, donator_name, amount) => {
 
+    const formattedAmount = amount.toLocaleString('es-MX', {
+        style: 'currency',
+        currency: 'MXN',
+        minimumFractionDigits: amount % 1 === 0 ? 0 : 2,
+        maximumFractionDigits: 2
+    });
+
     // Set up Nodemailer transporter
     const transporter = nodemailer.createTransport({
         service: "gmail",
@@ -12,8 +19,7 @@ const sendEmail = async (donator_email, donator_name, amount) => {
         },
     });
 
-
-    // Set up email option
+    // Set up email options
     const mailOptions = {
         from: process.env.MAIL_USER,
         to: donator_email,
@@ -22,7 +28,7 @@ const sendEmail = async (donator_email, donator_name, amount) => {
         <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
             <h2 style="color: #4CAF50;">¡Hola ${donator_name}!</h2>
             <p>
-                En nombre de todos los que formamos parte de la <strong>Fundación SANDERS</strong>, queremos expresarte nuestra más sincera gratitud por tu generosa donación de <strong>${amount} MXN</strong>.
+                En nombre de todos los que formamos parte de la <strong>Fundación SANDERS</strong>, queremos expresarte nuestra más sincera gratitud por tu generosa donación de <strong>${formattedAmount}</strong>.
             </p>
             <p>
                 Tu contribución nos permite seguir adelante con nuestra misión de <strong>apoyar a quienes más lo necesitan</strong>. Gracias a personas como tú, podemos continuar ofreciendo esperanza, recursos y asistencia a comunidades vulnerables.
@@ -46,6 +52,7 @@ const sendEmail = async (donator_email, donator_name, amount) => {
         </div>
     `,
     };
+
     try {
         const info = await transporter.sendMail(mailOptions);
         console.log('Email sent correctly');

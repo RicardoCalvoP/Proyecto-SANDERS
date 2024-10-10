@@ -32,11 +32,11 @@ export const App = () => {
       i18nProvider={i18nProvider}
       dataProvider={dataProvider}
       layout={MyLayout}
-      dashboard={Dashboard}
       loginPage={LoginPage}
 
     >
       <CustomRoutes>
+
         // Admin pages
         <Route path="/admin" element={<DashboardAdmin />} /> // Main admin page
         <Route path="/admin/donations" element={<DonationsPage />} /> // List of Donations

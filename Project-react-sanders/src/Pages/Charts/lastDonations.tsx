@@ -5,7 +5,7 @@ import { List, Datagrid, TextField, EmailField, DateField, NumberField } from "r
 const RecentDonations = () => {
     return (
         <Box sx={{ margin: '25px', padding: 4, textAlign: 'center', boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.7)', borderRadius: '25px', height: '575px' }}>
-            <Typography variant="h3" boxShadow={1} gutterBottom>Últimas donaciones</Typography>
+            <Typography variant="h3" gutterBottom>Últimas donaciones</Typography>
 
             {/* Contenedor para la lista y la gráfica en modo flex */}
             <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 3 }}>

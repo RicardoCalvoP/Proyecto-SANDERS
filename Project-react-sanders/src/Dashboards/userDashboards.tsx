@@ -9,7 +9,7 @@ const UserDashboard = (props: any) => {
                 padding: 1,
                 paddingTop: 3,
                 maxWidth: { xs: '100%', sm: '600px', md: '800px' }, // Adjust width based on screen size
-                margin: 'auto',
+                marginLeft: '50px',
                 marginTop: '25px',
                 marginBottom: '10px',
                 borderRadius: '25px',
