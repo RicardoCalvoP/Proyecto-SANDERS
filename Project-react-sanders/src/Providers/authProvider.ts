@@ -17,7 +17,7 @@ const authProvider: AuthProvider = {
         localStorage.setItem('token', token);
         localStorage.setItem('role', rol);
         localStorage.setItem('name', name)
-        localStorage.setItem('identity', JSON.stringify({ email, name }));
+        localStorage.setItem('identity', JSON.stringify({ email, name, rol }));
 
         // Emit an event to notify the application of a change
         const event = new Event('storage');
