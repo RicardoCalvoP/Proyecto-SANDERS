@@ -1,11 +1,11 @@
 import { Box, Typography } from '@mui/material';
-import { List, Datagrid, TextField, DateField, NumberField } from "react-admin";
+import { List, Datagrid, TextField, EmailField, DateField, NumberField } from "react-admin";
 
 
 const RecentDonations = () => {
     return (
-        <Box sx={{ marginTop: '25px', padding: '10px' }}>
-            <Typography variant="h3" gutterBottom>Últimas Donaciones</Typography>
+        <Box sx={{ margin: '25px', padding: 4, textAlign: 'center', boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.7)', borderRadius: '25px', height: '575px' }}>
+            <Typography variant="h3" boxShadow={1} gutterBottom>Últimas donaciones</Typography>
 
             {/* Contenedor para la lista y la gráfica en modo flex */}
             <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 3 }}>
@@ -23,6 +23,7 @@ const RecentDonations = () => {
                             }}>
                             <TextField source="donator_name" label="Nombre" />
                             <TextField source="donator_surname" label="Apellido" />
+                            <EmailField source="donator_email" label="Email" />
                             <NumberField source="amount" label="Monto" />
                             <DateField source="date" label="Fecha" />
                         </Datagrid>
