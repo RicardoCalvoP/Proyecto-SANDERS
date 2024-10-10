@@ -13,11 +13,11 @@ const ThankYouPage = () => {
         <Box
             sx={{
                 display: 'flex',
+                marginRight: '45vh',
+                marginTop: '22vh',
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                height: '100vh',
-                padding: 4,
                 textAlign: 'center',
             }}
         >
