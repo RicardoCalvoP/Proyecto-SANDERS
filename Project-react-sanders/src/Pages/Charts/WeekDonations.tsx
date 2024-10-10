@@ -49,7 +49,7 @@ const WeekChart = () => {
 
     return (
         <Box sx={{
-            marginTop: '25px', padding: '10px'
+            margin: '25px', padding: 4, textAlign: 'center', boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.7)', borderRadius: '25px', height: '575px'
         }}>
             <Box sx={{ marginBottom: '55px' }}>
                 <Typography variant="h3" gutterBottom>
