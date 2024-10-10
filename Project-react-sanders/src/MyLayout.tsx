@@ -30,7 +30,7 @@ const MySidebar = () => {
             position: 'fixed',
             top: 50,
             left: 0,
-            height: '90vh',
+            height: '88vh',
             borderRadius: '25px',
             margin: '15px',
             padding: '15px',
@@ -39,7 +39,7 @@ const MySidebar = () => {
         }}>
             <List>
                 {/* Sidebar Items */}
-                <Box sx={{ marginBottom: '15px' }}>
+                <Box sx={{ marginBottom: '5px', padding: '10px' }}>
                     {/* Dashboard */}
                     <ListItem
                         component={Link}
@@ -47,7 +47,6 @@ const MySidebar = () => {
                         sx={{
                             padding: '10px 20px',
                             borderRadius: '25px',
-                            backgroundColor: isActive('/admin') ? '#00304E' : 'transparent',
                             boxShadow: isActive('/admin') ? '0px 4px 12px rgba(0, 0, 0, 1)' : 'none',
                             transition: 'background-color 0.3s, box-shadow 0.3s',
                             '&:hover': {
@@ -66,11 +65,11 @@ const MySidebar = () => {
                         <ListItemIcon>
                             <BarChartOutlinedIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Dashboard" />
+                        <ListItemText primary="Inicio" />
                     </ListItem>
                 </Box>
 
-                <Box sx={{ marginBottom: '15px' }}>
+                <Box sx={{ marginBottom: '5px', padding: '10px' }}>
                     {/* Donations */}
                     <ListItem
                         component={Link}
@@ -78,7 +77,6 @@ const MySidebar = () => {
                         sx={{
                             padding: '10px 20px',
                             borderRadius: '25px',
-                            backgroundColor: isActive('/admin/donations') ? '#00304E' : 'transparent',
                             boxShadow: isActive('/admin/donations') ? '0px 4px 12px rgba(0, 0, 0, 1)' : 'none',
                             transition: 'background-color 0.3s, box-shadow 0.3s',
                             '&:hover': {
@@ -97,11 +95,11 @@ const MySidebar = () => {
                         <ListItemIcon>
                             <PaidOutlinedIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Donations" />
+                        <ListItemText primary="Donaciones" />
                     </ListItem>
                 </Box>
 
-                <Box sx={{ marginBottom: '15px' }}>
+                <Box sx={{ marginBottom: '5px', padding: '10px' }}>
                     {/* Users */}
                     <ListItem
                         component={Link}
@@ -109,7 +107,6 @@ const MySidebar = () => {
                         sx={{
                             padding: '10px 20px',
                             borderRadius: '25px',
-                            backgroundColor: isActive('/admin/users') ? '#00304E' : 'transparent',
                             boxShadow: isActive('/admin/users') ? '0px 4px 12px rgba(0, 0, 0, 1)' : 'none',
                             transition: 'background-color 0.3s, box-shadow 0.3s',
                             '&:hover': {
@@ -128,11 +125,11 @@ const MySidebar = () => {
                         <ListItemIcon>
                             <PeopleIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Users" />
+                        <ListItemText primary="Usuarios" />
                     </ListItem>
                 </Box>
 
-                <Box sx={{ marginBottom: '15px' }}>
+                <Box sx={{ marginBottom: '5px', padding: '10px' }}>
                     {/* Employees */}
                     <ListItem
                         component={Link}
@@ -140,7 +137,6 @@ const MySidebar = () => {
                         sx={{
                             padding: '10px 20px',
                             borderRadius: '25px',
-                            backgroundColor: isActive('/admin/employees') ? '#00304E' : 'transparent',
                             boxShadow: isActive('/admin/employees') ? '0px 4px 12px rgba(0, 0, 0, 1)' : 'none',
                             transition: 'background-color 0.3s, box-shadow 0.3s',
                             '&:hover': {
@@ -159,7 +155,7 @@ const MySidebar = () => {
                         <ListItemIcon>
                             <BadgeOutlinedIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Employees" />
+                        <ListItemText primary="Empleados" />
                     </ListItem>
                 </Box>
 
@@ -191,7 +187,9 @@ const MyUserMenu = () => {
 
 // Custom AppBar with the User Menu
 const MyAppBar = () => (
-    <AppBar userMenu={<MyUserMenu />} sx={{ background: '#00304E' }} />
+    <AppBar userMenu={<MyUserMenu />} sx={{
+        background: '#00304E'
+    }} />
 );
 
 // Layout with dynamic sidebar based on the current path or user role
@@ -205,8 +203,8 @@ const MyLayout = ({ children }: any) => {
             appBar={MyAppBar}
             sidebar={hideSidebar ? () => null : MySidebar}
             sx={{
-                paddingLeft: '300px',  // Ajusta el contenido para no quedar detrás del sidebar
-                paddingTop: '80px',    // Añade un margen superior para el espacio del AppBar
+                paddingLeft: '300px',
+                paddingTop: '80px',
             }}
         >
             {children}
