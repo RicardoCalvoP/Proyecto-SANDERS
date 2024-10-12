@@ -195,23 +195,26 @@ const MyAppBar = () => (
 // Layout with dynamic sidebar based on the current path or user role
 const MyLayout = ({ children }: any) => {
     const location = useLocation();
+    const identity = JSON.parse(localStorage.getItem('identity') || '{}');
+    const userRol = identity.rol;
 
-    const hideSidebar = location.pathname === '/donator' || location.pathname === '/thank-you';
+    // Conditionally hide sidebar and appbar for "Usuario" role
+    const hideSidebarAndAppBar = userRol === 'Usuario';
 
     return (
         <Layout
+            // appBar={hideSidebarAndAppBar ? () => null : MyAppBar} // Hide AppBar if the user role is "Usuario"
             appBar={MyAppBar}
-            sidebar={hideSidebar ? () => null : MySidebar}
+            sidebar={hideSidebarAndAppBar ? () => null : MySidebar} // Hide Sidebar if the user role is "Usuario"
             sx={{
-                paddingLeft: '300px',
-                paddingTop: '80px',
+                paddingLeft: hideSidebarAndAppBar ? '0px' : '300px', // Adjust layout padding based on sidebar visibility
+                paddingTop: hideSidebarAndAppBar ? '0px' : '80px', // Adjust padding for the app bar
             }}
         >
             {children}
         </Layout>
     );
 };
-
 
 
 export default MyLayout;
