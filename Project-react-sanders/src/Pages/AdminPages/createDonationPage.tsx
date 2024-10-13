@@ -133,7 +133,6 @@ const CreateDonationPage = (props: any) => {
                         ]}
                         emptyText="En linea"
                         fullWidth
-                        required
                         inputProps={{ style: { marginTop: '10px' } }}
                     />
                 </SimpleForm>
