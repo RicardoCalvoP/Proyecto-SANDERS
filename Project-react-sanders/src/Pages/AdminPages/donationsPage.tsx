@@ -49,7 +49,8 @@ const DonationsPage = () => {
         <Box sx={{
             paddingLeft: 4,
             paddingRight: 7,
-            marginTop: -5
+            marginTop: -5,
+            marginBottom: 5
         }}
         >
 
@@ -64,7 +65,7 @@ const DonationsPage = () => {
             </Box>
 
             {/* Donation List Section */}
-            <List filters={<DonationFilter />} resource="donations" title={"Donaciones"}>
+            <List filters={<DonationFilter />} pagination={false} resource="donations" title={"Donaciones"}>
 
                 <Datagrid
                     bulkActionButtons={false}
