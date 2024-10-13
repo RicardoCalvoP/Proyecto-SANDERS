@@ -59,6 +59,27 @@ const LoginPage = () => {
         setLoading(false); // Stop loading indicator after login attempt
     };
 
+    // Function to handle "Donar como invitado"
+    const loginAsGuest = async () => {
+        setLoading(true); // Set loading state
+        setError(''); // Clear any previous error messages
+
+        try {
+            // Autenticar al usuario "invitado" con credenciales predefinidas
+            await login({ email: 'usuarios.sanders@sanders.mx', password: 'usuarios' });  // Cambia por las credenciales del invitado
+
+            // Redirige al usuario a la página de donación
+            notify('¡Bienvenido como invitado!'); // Notify the user about guest access
+            navigate('/donator'); // Redirigir a la página de donaciones
+        } catch (error) {
+            // If login as guest fails, set an error message
+            setError('No se pudo iniciar sesión como invitado.');
+            notify('Error al intentar iniciar sesión como invitado.', { type: 'warning' });
+        }
+
+        setLoading(false); // Stop loading indicator after login attempt
+    };
+
     return (
         <Box
             sx={{
@@ -204,6 +225,7 @@ const LoginPage = () => {
                     </Alert>
                 )}
 
+
                 {/* Submit button */}
                 <Button
                     type="submit" // Defines the button as the form's submit button
@@ -216,6 +238,17 @@ const LoginPage = () => {
                 >
                     {/* Shows a loading spinner while logging in */}
                     {loading ? <CircularProgress size={24} /> : 'Continuar'}
+                </Button>
+                {/* Log in as guest */}
+                <Button
+                    onClick={loginAsGuest}
+                    disabled={loading}
+                    variant="outlined"
+                    fullWidth
+
+
+                >
+                    {loading ? <CircularProgress size={24} /> : 'Donar como Invitado'}
                 </Button>
             </Box>
         </Box>

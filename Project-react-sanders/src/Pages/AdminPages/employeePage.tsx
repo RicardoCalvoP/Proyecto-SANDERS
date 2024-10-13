@@ -38,7 +38,9 @@ const EmployeesPage = () => {
         <Box sx={{
             paddingLeft: 4,
             paddingRight: 7,
-            marginTop: -5
+            marginTop: -5,
+            marginBottom: 5
+
         }}
         >
 
@@ -53,7 +55,7 @@ const EmployeesPage = () => {
             </Box>
 
             {/* Donation List Section */}
-            <List filters={<EmployeeFilter />} resource="employees" title={"Empleados"}>
+            <List filters={<EmployeeFilter />} pagination={false} resource="employees" title={"Empleados"}>
 
                 <Datagrid
                     bulkActionButtons={false}

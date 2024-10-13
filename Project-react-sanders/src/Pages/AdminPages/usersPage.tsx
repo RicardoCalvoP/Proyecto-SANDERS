@@ -21,10 +21,15 @@ const UsersPage = () => {
     const isSmall = useMediaQuery<Theme>((theme) => theme.breakpoints.down("xs"));
 
     return (
-        <Box sx={{ padding: 4 }}>
+        <Box sx={{
+            paddingLeft: 4,
+            paddingRight: 7,
+            marginTop: -5,
+            marginBottom: 5
+        }}>
 
             {/* Donation List Section */}
-            <List filters={<UsersFilter />} resource="users" title={"Usuarios"}>
+            <List filters={<UsersFilter />} pagination={false} resource="users" title={"Usuarios"}>
 
                 <Datagrid
                     bulkActionButtons={false}
