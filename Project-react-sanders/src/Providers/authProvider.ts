@@ -45,8 +45,8 @@ const authProvider: AuthProvider = {
     },
     getIdentity: () => {
         try {
-            const { id, email, name } = JSON.parse(localStorage.getItem('identity') || '{}');
-            return Promise.resolve({ id, email, name });
+            const { id, email, name, rol } = JSON.parse(localStorage.getItem('identity') || '{}');
+            return Promise.resolve({ id, email, name, rol });
         } catch (error) {
             return Promise.reject();
         }
