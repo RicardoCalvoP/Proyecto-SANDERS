@@ -1,11 +1,12 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import { Employee } from '../../Models/models.js';
+import { authenticateJWT } from '../../Authenticator/auth.js';
 
 const router = express.Router();
 
 // Create new employee (POST /employees)
-router.post('/employee', async (req, res) => {
+router.post('/employee', authenticateJWT, async (req, res) => {
     try {
 
         const { name, surname, rol, phone, email, password } = req.body;

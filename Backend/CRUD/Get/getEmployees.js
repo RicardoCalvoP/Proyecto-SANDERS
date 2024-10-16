@@ -2,9 +2,10 @@
 import express from 'express';
 import { Employee } from '../../Models/models.js'
 import router from './getUsers.js';
+import { authenticateJWT } from '../../Authenticator/auth.js';
 
 // Get all employees (GET /employees)
-router.get('/employees', async (req, res) => {
+router.get('/employees', authenticateJWT, async (req, res) => {
     try {
         const { _sort = 'rol', _order = 'ASC', name, surname, rol, email } = req.query;
 

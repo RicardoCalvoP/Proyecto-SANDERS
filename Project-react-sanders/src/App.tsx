@@ -22,7 +22,7 @@ import CreateEmployee from "./Pages/AdminPages/createEmployeePage";
 import ThankYouPage from "./Pages/UserPages/thankYouPage";
 
 // Providers
-const dataProvider = jsonServerProvider('https://localhost:5001');
+import dataProvider from "./Providers/dataProvider";
 import authProvider from "./Providers/authProvider";
 
 export const App = () => (
