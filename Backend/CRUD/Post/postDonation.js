@@ -1,11 +1,12 @@
 import express from 'express';
 import { Donation, User } from '../../Models/models.js';
 import sendEmail from '../../MailSender/Sender.js';
+import { authenticateJWT } from '../../Authenticator/auth.js';
 
 const router = express.Router();
 
 // Create new donation (POST /donaciones)
-router.post('/donaciones', async (req, res) => {
+router.post('/donaciones', authenticateJWT, async (req, res) => {
     try {
         // Search for user by email
         let user = await User.findOne({ email: req.body.donator_email });

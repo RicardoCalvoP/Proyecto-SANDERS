@@ -1,10 +1,11 @@
 import express from 'express';
 import { User } from '../../Models/models.js'
+import { authenticateJWT } from '../../Authenticator/auth.js';
 
 const router = express.Router();
 
 // Get every user
-router.get('/users', async (req, res) => {
+router.get('/users', authenticateJWT, async (req, res) => {
     try {
         // Get parameters sort & order from frontend
         const { _sort = 'date', _order = 'ASC', name, surname, email } = req.query;

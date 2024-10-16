@@ -1,9 +1,10 @@
 import express from 'express';
 import { Donation } from '../../Models/models.js'
 import router from './getUsers.js';
+import { authenticateJWT } from '../../Authenticator/auth.js';
 
 // Get all donations (GET /donations)
-router.get('/donations', async (req, res) => { //  authenticateJWT, was removed
+router.get('/donations', authenticateJWT, async (req, res) => { //  authenticateJWT, was removed
     try {
 
         // Get parameters sort & order from frontend
@@ -62,7 +63,7 @@ router.get('/donations', async (req, res) => { //  authenticateJWT, was removed
 });
 
 // Get a number of recent donations (GET /donations/recent/:num)
-router.get('/donations/recent/:num', async (req, res) => {
+router.get('/donations/recent/:num', authenticateJWT, async (req, res) => {
     try {
         // Get the number of donations to return from the URL parameter
         const numDonations = parseInt(req.params.num, 10); // Convert :num to an integer
@@ -96,7 +97,7 @@ router.get('/donations/recent/:num', async (req, res) => {
 });
 
 // Get donations from 7 days ago
-router.get('/donations/week', async (req, res) => {
+router.get('/donations/week', authenticateJWT, async (req, res) => {
     try {
         // Get the current date
         const currentDate = new Date();
@@ -153,7 +154,7 @@ router.get('/donations/week', async (req, res) => {
 
 
 // Get amount of donations depending on type
-router.get('/donations/types', async (req, res) => {
+router.get('/donations/types', authenticateJWT, async (req, res) => {
     try {
         // Group donations by "kind" and count the number of each type
         const donationTypesCount = await Donation.aggregate([
@@ -180,7 +181,7 @@ router.get('/donations/types', async (req, res) => {
 });
 
 // Get top 3 donors by total donation amount
-router.get('/donations/top-donors-by-amount', async (req, res) => {
+router.get('/donations/top-donors-by-amount', authenticateJWT, async (req, res) => {
     try {
         const topDonorsByAmount = await Donation.aggregate([
             {
@@ -202,7 +203,7 @@ router.get('/donations/top-donors-by-amount', async (req, res) => {
 });
 
 // Get top 3 donors by number of donations
-router.get('/donations/top-donors-by-count', async (req, res) => {
+router.get('/donations/top-donors-by-count', authenticateJWT, async (req, res) => {
     try {
         const topDonorsByCount = await Donation.aggregate([
             {
