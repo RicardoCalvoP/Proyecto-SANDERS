@@ -10,7 +10,13 @@ const TopDonorsByAmount = () => {
         // Fetch top donors by total amount donated
         const fetchTopDonorsByAmount = async () => {
             try {
-                const response = await axios.get('https://localhost:5001/donations/top-donors-by-amount');
+                const token = localStorage.getItem('token');
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                };
+                const response = await axios.get('https://localhost:5001/donations/top-donors-by-amount', config);
                 setTopDonorsByAmount(response.data);
             } catch (error) {
                 console.error('Error fetching top donors by amount:', error);

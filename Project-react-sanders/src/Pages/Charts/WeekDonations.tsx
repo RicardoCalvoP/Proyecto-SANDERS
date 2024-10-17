@@ -33,7 +33,13 @@ const WeekChart = () => {
         // Llamada al API para obtener donaciones por día en los últimos 7 días
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://localhost:5001/donations/week'); // Llamada al API
+                const token = localStorage.getItem('token');
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                };
+                const response = await axios.get('https://localhost:5001/donations/week', config); // Llamada al API
                 const formattedData = response.data.map((item: any) => ({
                     day: item.day,  // Fecha en formato YYYY-MM-DD
                     donations: item.donations // Cantidad de donaciones por día

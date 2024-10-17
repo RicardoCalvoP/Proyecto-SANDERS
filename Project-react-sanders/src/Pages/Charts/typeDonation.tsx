@@ -18,7 +18,13 @@ const TypeDonationChart = () => {
         // Fetch donation type data from the API
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://localhost:5001/donations/types');
+                const token = localStorage.getItem('token');
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                };
+                const response = await axios.get('https://localhost:5001/donations/types', config);
                 const formattedData: DonationType[] = Object.keys(response.data).map((key) => ({
                     name: key,
                     value: response.data[key],
