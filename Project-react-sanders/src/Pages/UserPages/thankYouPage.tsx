@@ -1,7 +1,10 @@
 import { Box, Typography, Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const ThankYouPage = () => {
+    const location = useLocation();
+
+    const isSidebarVisible = location.pathname !== '/thank-you'
     const navigate = useNavigate();
 
     // Function to redirect to donation forms
@@ -13,11 +16,11 @@ const ThankYouPage = () => {
         <Box
             sx={{
                 display: 'flex',
-                marginRight: '45vh',
-                marginTop: '22vh',
+                justifyContent: 'center',
+                marginLeft: isSidebarVisible ? '250px' : '0px',  // Adjust left margin if sidebar is present
+                height: '40vw',  // Ensure the full width of the viewport is used
                 flexDirection: 'column',
                 alignItems: 'center',
-                justifyContent: 'center',
                 textAlign: 'center',
             }}
         >
