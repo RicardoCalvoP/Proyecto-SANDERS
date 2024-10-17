@@ -14,9 +14,6 @@ const Overview = () => {
 
 
             <Box sx={{ display: 'flex', flexWrap: 'wrap', textAlign: 'center', justifyContent: 'space-around', marginTop: -10 }}>
-
-
-
                 <Box sx={{ flex: 1, minWidth: '40%' }}>
                     <LastDonations />
                 </Box>
@@ -27,8 +24,6 @@ const Overview = () => {
                 <Box sx={{ flex: 1, minWidth: '70%' }}>
                     <WeekChart />
                 </Box>
-
-
                 <Box sx={{ flex: 1, minWidth: '40%' }}>
                     <TopDonorsByAmount />
                 </Box>

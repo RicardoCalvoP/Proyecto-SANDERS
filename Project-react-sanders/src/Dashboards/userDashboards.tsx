@@ -6,7 +6,7 @@ const UserDashboard = (props: any) => {
     const location = useLocation();
 
     // Check if sidebar is present or not based on the route
-    const isSidebarVisible = location.pathname !== '/donator' && location.pathname !== '/thank-you';
+    const isSidebarVisible = location.pathname !== '/donator';
 
     return (
         <Box
