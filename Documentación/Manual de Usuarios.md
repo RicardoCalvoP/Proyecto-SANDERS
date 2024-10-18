@@ -38,6 +38,7 @@
 - **Descripción**: Una vez iniciada la sesión, los usuarios pueden cerrar sesión desde el menú en la parte superior derecha del dashboard, donde aparece la opción "Logout".
 - **Acciones**:
   - Hacer clic en el ícono de usuario y seleccionar "Logout" para cerrar sesión.
+  
 ![Logout](./Images/3.jpeg)
 
 ---
